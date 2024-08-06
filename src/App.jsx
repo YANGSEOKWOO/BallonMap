@@ -1,12 +1,14 @@
+
+import Map from "./components/atoms/Map"
+import Home from "./pages/Home"
 function App() {
 
   return (
-    <>
-      <div>check</div>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    </>
+    <div>
+      <Home/>
+      <Map/>
+    </div> 
+    
   )
 }
 
