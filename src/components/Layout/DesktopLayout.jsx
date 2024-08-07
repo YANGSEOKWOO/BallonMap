@@ -1,36 +1,19 @@
-import React from 'react';
-// import { useLocation } from 'react-router-dom';
-// import TopNavbar from 'components/Navbar/DesktopNavbar';
-// import SideBar from 'components/Sidebar/DesktopSidebar';
-// import COLOR from 'constants/color.constant';
+import React from 'react'
+import { Map } from 'react-kakao-maps-sdk'
+import Marker from '../atoms/Marker'
+import Sidebar from '../molecules/Sidebar'
 
 const DesktopLayout = (props) => {
-//   const location = useLocation();
+  //   const location = useLocation();
   return (
-    <div
-      style={{
-        backgroundColor: 'red',
-        width: '100%',
-        height: '100%',
-      }}
-    >
-      {/* <TopNavbar /> */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          maxWidth: '1170px',
-          margin: 'auto',
-          height: 'auto',
-        }}
-      >
-        dd
-        {/* // 메인 페이지에서만 사이드바 렌더링
-        {location.pathname === '/' ? <SideBar /> : null}
-        <div style={{ width: '100%', height: '100%', marginTop: '7rem' }}>{props.children}</div> */}
-      </div>
+    <div style={{ height: '100%', width: '100%' }} className="d-flex">
+      <Sidebar />
+      <Map center={{ lat: 33.450701, lng: 126.570667 }} style={{ width: '100%', height: '100%' }} level={4}>
+        <Marker lat={33.450701} lng={126.570667} isCleaned={true} id={1} />
+        <Marker lat={33.451701} lng={126.571667} isCleaned={false} id={2} />
+      </Map>
     </div>
-  );
-};
+  )
+}
 
-export default DesktopLayout;
+export default DesktopLayout

@@ -15,7 +15,7 @@ const ResponsiveLayout = ({ children }) => {
   };
 
   return (
-    <div>
+    <div style={{height:"100%", width:"100%"}}>
       <Desktop />
       <Mobile />
     </div>
