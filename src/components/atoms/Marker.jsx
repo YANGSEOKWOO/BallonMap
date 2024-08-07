@@ -8,6 +8,8 @@ import redballon from "../../assets/redballon.png";
  * 
  * @param {number} lat 마커 위도
  * @param {number} lng 마커 경도
+ * @param {bool} isCleaned 제거 됐는지 여부
+ * @param {number} id 풍선 id값
  * 
  * @returns {JSX.Element} 마커 컴포넌트
  */
