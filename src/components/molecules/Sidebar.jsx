@@ -5,7 +5,7 @@ import { BellRinging, Envelope, Balloon } from '@phosphor-icons/react'
 import BallonListItem from '../atoms/BallonListItem'
 import './css/Sidebar.css'
 
-const Sidebar = ({ ballons }) => {
+const Sidebar = ({ ballons, onBallonClick }) => {
   const [isConfirmed, setIsConfirmed] = useState(false)
 
   const handleCheckboxChange = (e) => {
@@ -40,7 +40,9 @@ const Sidebar = ({ ballons }) => {
           <div className="offcanvas-body">
             <h5>현재 발견된 오물풍선 목록</h5>
             {ballons.map((ballon) => (
-              <BallonListItem key={ballon.id} data={ballon} />
+              <div onClick={() => onBallonClick(ballon.latitude, ballon.longitude)} style={{ cursor: 'pointer' }}>
+                <BallonListItem key={ballon.id} data={ballon} />
+              </div>
             ))}
           </div>
         </div>
