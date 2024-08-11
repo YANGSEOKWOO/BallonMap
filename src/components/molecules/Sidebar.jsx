@@ -2,9 +2,8 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import { BellRinging, Envelope, Balloon } from '@phosphor-icons/react'
-{
-  /* <Heart color="#AE2983" weight="fill" size={32} /> */
-}
+import BallonListItem from '../atoms/BallonListItem'
+import './css/Sidebar.css'
 // TODO :: 아이콘 이제 누를때마다 보이는 화면 다르게 + 색깔처리 + 클릭표시
 const Sidebar = () => {
   return (
@@ -15,10 +14,10 @@ const Sidebar = () => {
         </div>
         <div className="side-bar-menu ">
           <div className="side-bar-menu-ballon-list border-top d-flex justify-content-center align-items-center">
-            <BellRinging className="my-3 mx-2" size={32} weight="fill" alt="목록보기" data-bs-toggle="offcanvas" data-bs-target="#ballon_list" />
+            <BellRinging id="bell" className="my-3 mx-2" size={32} weight="fill" alt="목록보기" data-bs-toggle="offcanvas" data-bs-target="#ballon_list" />
           </div>
           <div className="side-bar-menu-report border-top border-bottom d-flex justify-content-center align-items-center">
-            <Envelope className="my-3 mx-2" size={32} weight="fill" alt="제보하기" />
+            <Envelope id="report" className="my-3 mx-2" size={32} weight="fill" alt="제보하기" />
           </div>
         </div>
       </div>
@@ -32,6 +31,7 @@ const Sidebar = () => {
           </div>
           <div className="offcanvas-body">
             <h5>현재 발견된 오물풍선 목록</h5>
+            <BallonListItem />
           </div>
         </div>
       </div>

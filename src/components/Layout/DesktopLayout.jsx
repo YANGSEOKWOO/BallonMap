@@ -4,7 +4,6 @@ import Marker from '../atoms/Marker'
 import Sidebar from '../molecules/Sidebar'
 
 const DesktopLayout = (props) => {
-  //   const location = useLocation();
   return (
     <div style={{ height: '100%', width: '100%' }} className="d-flex">
       <Sidebar />
