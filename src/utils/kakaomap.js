@@ -5,16 +5,21 @@
  * @param {number} lat
  * @param {number} lng
  *
- * @returns {string} location 구주소 + 도로명주소(표기 안될 수 있음)
+ * @returns {Promise<string>} location 구주소 + 도로명주소(표기 안될 수 있음)
  */
-function convertCoordinatesToAddress(lat, lng) {
-  const geocoder = new kakao.maps.services.Geocoder()
-  const coord = new kakao.maps.LatLng(lat, lng)
+export function convertCoordinatesToAddress(lat, lng) {
+  return new Promise((resolve, reject) => {
+    const geocoder = new kakao.maps.services.Geocoder()
+    const coord = new kakao.maps.LatLng(lat, lng)
 
-  geocoder.coord2Address(coord.getLng(), coord.getLat(), function (result, status) {
-    if (status === kakao.maps.services.Status.OK) {
-      console.log('좌표변환!')
-      return result[0].address.address_name
-    }
+    geocoder.coord2Address(coord.getLng(), coord.getLat(), function (result, status) {
+      if (status === kakao.maps.services.Status.OK) {
+        console.log('좌표변환!')
+        console.log('result:', result[0].address.address_name)
+        resolve(result[0].address.address_name)
+      } else {
+        reject(new Error('주소를 찾을 수 없습니다.'))
+      }
+    })
   })
 }

@@ -2,23 +2,27 @@ import { useMediaQuery } from 'react-responsive'
 
 import DesktopLayout from './DesktopLayout'
 import MobileLayout from './MobileLayout'
+import { getBallonListData } from '../../apis'
 
 const ResponsiveLayout = ({ children }) => {
-  const Desktop = () => {
+  const Desktop = ({ ballons }) => {
     const isDesktop = useMediaQuery({ minWidth: 768 })
 
-    return isDesktop && <DesktopLayout>{children}</DesktopLayout>
+    return isDesktop && <DesktopLayout ballons={ballons}>{children}</DesktopLayout>
   }
 
-  const Mobile = () => {
+  const Mobile = ({ ballons }) => {
     const isMobile = useMediaQuery({ maxWidth: 767 })
-    return isMobile && <MobileLayout>{children}</MobileLayout>
+
+    return isMobile && <MobileLayout ballons={ballons}>{children}</MobileLayout>
   }
+
+  const data = getBallonListData()
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
-      <Desktop />
-      <Mobile />
+      <Desktop ballons={data} />
+      <Mobile ballons={data} />
     </div>
   )
 }

@@ -4,8 +4,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import { BellRinging, Envelope, Balloon } from '@phosphor-icons/react'
 import BallonListItem from '../atoms/BallonListItem'
 import './css/Sidebar.css'
-// TODO :: 아이콘 이제 누를때마다 보이는 화면 다르게 + 색깔처리 + 클릭표시
-const Sidebar = () => {
+
+const Sidebar = ({ ballons }) => {
   return (
     <>
       <div className="sidebar rounded-end text-bg-light" style={{ width: '60px', height: '100%', position: 'fixed', top: 0, zIndex: 1000 }}>
@@ -31,7 +31,9 @@ const Sidebar = () => {
           </div>
           <div className="offcanvas-body">
             <h5>현재 발견된 오물풍선 목록</h5>
-            <BallonListItem />
+            {ballons.map((ballon) => (
+              <BallonListItem key={ballon.id} data={ballon} />
+            ))}
           </div>
         </div>
       </div>
