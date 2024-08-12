@@ -14,8 +14,6 @@ export function convertCoordinatesToAddress(lat, lng) {
 
     geocoder.coord2Address(coord.getLng(), coord.getLat(), function (result, status) {
       if (status === kakao.maps.services.Status.OK) {
-        console.log('좌표변환!')
-        console.log('result:', result[0].address.address_name)
         resolve(result[0].address.address_name)
       } else {
         reject(new Error('주소를 찾을 수 없습니다.'))

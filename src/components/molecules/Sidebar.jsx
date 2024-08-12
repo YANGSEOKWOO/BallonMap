@@ -12,18 +12,28 @@ const Sidebar = ({ ballons, onBallonClick }) => {
     setIsConfirmed(e.target.checked)
   }
 
+  const handleBallonListClick = (event) => {
+    event.stopPropagation() // 이벤트 버블링 방지
+    // 오프캔버스를 여는 로직
+  }
+
+  const handleReportClick = (event) => {
+    event.stopPropagation()
+  }
+
   return (
     <>
+      {/* 사이드바 */}
       <div className="sidebar rounded-end text-bg-light" style={{ width: '60px', height: '100%', position: 'fixed', top: 0, zIndex: 1000 }}>
         <div className="logo d-flex justify-content-center align-items-center my-3 mx-2">
           <Balloon size={40} weight="fill" alt="logo" />
         </div>
         <div className="side-bar-menu">
           <div className="side-bar-menu-ballon-list border-top d-flex justify-content-center align-items-center">
-            <BellRinging id="bell" className="my-3 mx-2" size={32} weight="fill" alt="목록보기" data-bs-toggle="offcanvas" data-bs-target="#ballon_list" />
+            <BellRinging id="bell" className="my-3 mx-2" size={32} weight="fill" alt="목록보기" data-bs-toggle="offcanvas" data-bs-target="#ballon_list" onClick={handleBallonListClick} />
           </div>
           <div className="side-bar-menu-report border-top border-bottom d-flex justify-content-center align-items-center">
-            <Envelope id="report" className="my-3 mx-2" size={32} weight="fill" alt="제보하기" data-bs-toggle="offcanvas" data-bs-target="#report_modal" />
+            <Envelope id="report" className="my-3 mx-2" size={32} weight="fill" alt="제보하기" data-bs-toggle="offcanvas" data-bs-target="#report_modal" onClick={handleReportClick} />
           </div>
         </div>
       </div>
@@ -40,8 +50,8 @@ const Sidebar = ({ ballons, onBallonClick }) => {
           <div className="offcanvas-body">
             <h5>현재 발견된 오물풍선 목록</h5>
             {ballons.map((ballon) => (
-              <div onClick={() => onBallonClick(ballon.latitude, ballon.longitude)} style={{ cursor: 'pointer' }}>
-                <BallonListItem key={ballon.id} data={ballon} />
+              <div key={ballon.id} onClick={() => onBallonClick(ballon.latitude, ballon.longitude)} style={{ cursor: 'pointer' }}>
+                <BallonListItem data={ballon} />
               </div>
             ))}
           </div>

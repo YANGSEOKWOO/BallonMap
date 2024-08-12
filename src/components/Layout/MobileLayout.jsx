@@ -1,17 +1,18 @@
-import React from 'react';
+import React from 'react'
 // import MobileSideBar from 'components/Sidebar/MobileSidebar';
 // import MobileNavbar from 'components/Navbar/MobileNavbar';
 // import COLOR from 'constants/color.constant';
 
-const MobileLayout = (props) => {
+const MobileLayout = ({ ballons, props }) => {
+  console.log('ballons:', ballons)
   return (
     <div
       style={{
-        backgroundColor: "blue",
+        backgroundColor: 'blue',
         width: '100%',
       }}
     >
-        모바일
+      모바일
       {/* <MobileNavbar /> */}
       <div
         style={{
@@ -27,7 +28,7 @@ const MobileLayout = (props) => {
         <div>{props.children}</div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MobileLayout;
+export default MobileLayout
