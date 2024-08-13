@@ -1,34 +1,19 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import ModalTopContent from './ModalTopContent'
+import ModalBottomContent from './ModalBottomContent'
+import './css/MarkerModal.css'
 
 export default function MarkerModal({ show, handleClose, markerData }) {
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Marker Information</Modal.Title>
-        </Modal.Header>
+      <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
+        <Modal.Header closeButton className="border-0 pb-0"></Modal.Header>
         <Modal.Body>
-          {markerData ? (
-            <>
-              <p>ID: {markerData.id}</p>
-              <p>Latitude: {markerData.lat}</p>
-              <p>Longitude: {markerData.lng}</p>
-              <p>Processing State: {markerData.isCleaned ? '처리 완료' : '처리 중'}</p>
-            </>
-          ) : (
-            <p>No marker data available.</p>
-          )}
+          <ModalTopContent />
+          <ModalBottomContent />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   )
