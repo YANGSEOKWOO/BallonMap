@@ -30,11 +30,11 @@ const MobileLayout = ({ ballons }) => {
         ))}
       </Map>
       {/* 하단 고정바 */}
-      <div className="report-container">
-        <Siren size={36} className="bottom-fixed" weight="fill" color="#ffffff" />
-      </div>
       <div className="list-container">
         <ChatTeardropText size={36} className="bottom-fixed" weight="fill" color="#ffffff" />
+      </div>
+      <div className="report-container">
+        <Siren size={36} className="bottom-fixed" weight="fill" color="#ffffff" />
       </div>
     </div>
   )

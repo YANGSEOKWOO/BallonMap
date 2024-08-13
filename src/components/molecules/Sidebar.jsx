@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import { BellRinging, Envelope, Balloon } from '@phosphor-icons/react'
 import BallonListItem from '../atoms/BallonListItem'
 import './css/Sidebar.css'
+import { Badge } from 'react-bootstrap'
 
 const Sidebar = ({ ballons, onBallonClick }) => {
   const [isConfirmed, setIsConfirmed] = useState(false)
@@ -20,6 +21,7 @@ const Sidebar = ({ ballons, onBallonClick }) => {
   const handleReportClick = (event) => {
     event.stopPropagation()
   }
+  console.log('ballons:', ballons)
 
   return (
     <>
@@ -31,6 +33,16 @@ const Sidebar = ({ ballons, onBallonClick }) => {
         <div className="side-bar-menu">
           <div className="side-bar-menu-ballon-list border-top d-flex justify-content-center align-items-center">
             <BellRinging id="bell" className="my-3 mx-2" size={32} weight="fill" alt="목록보기" data-bs-toggle="offcanvas" data-bs-target="#ballon_list" onClick={handleBallonListClick} />
+            <Badge
+              bg="danger"
+              style={{
+                position: 'absolute',
+                right: '5px',
+                top: '82px',
+              }}
+            >
+              {ballons.length}
+            </Badge>
           </div>
           <div className="side-bar-menu-report border-top border-bottom d-flex justify-content-center align-items-center">
             <Envelope id="report" className="my-3 mx-2" size={32} weight="fill" alt="제보하기" data-bs-toggle="offcanvas" data-bs-target="#report_modal" onClick={handleReportClick} />
