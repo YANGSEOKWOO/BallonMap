@@ -1,8 +1,8 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-import ModalTopContent from './ModalTopContent'
-import ModalBottomContent from './ModalBottomContent'
+import ModalTopContent from '../molecules/ModalTopContent'
+import ModalBottomContent from '../molecules/ModalBottomContent'
 import './css/MarkerModal.css'
 
 export default function MarkerModal({ show, handleClose, markerData }) {

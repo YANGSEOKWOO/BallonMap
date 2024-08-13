@@ -1,6 +1,6 @@
 import React from 'react'
-import processingBallon from '../../assets/ballon_clean_img.png'
-import detectingBallon from '../../assets/ballon_img.png'
+import processingballoon from '../../assets/balloon_clean_img.png'
+import detectingballoon from '../../assets/balloon_img.png'
 function StatusHeader({ status, icon, color, fontColor }) {
   return (
     <div className="d-flex flex-column">
@@ -58,10 +58,10 @@ export default function ModalBottomContent() {
 
       <div className="d-flex justify-content-between">
         {/* 발견 */}
-        <TimelineItem status={{ title: '발견', color: '#ffedb0' }} date="2024년 6월 17일" time="20시 07분" image={detectingBallon} />
+        <TimelineItem status={{ title: '발견', color: '#ffedb0' }} date="2024년 6월 17일" time="20시 07분" image={detectingballoon} />
 
         {/* 처리 완료 */}
-        <TimelineItem status={{ title: '처리 완료', color: '#d0e9ff' }} date="2024년 6월 17일" time="20시 42분" result="검출결과 : 단순 쓰레기" image={processingBallon} />
+        <TimelineItem status={{ title: '처리 완료', color: '#d0e9ff' }} date="2024년 6월 17일" time="20시 42분" result="검출결과 : 단순 쓰레기" image={processingballoon} />
       </div>
     </>
   )

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import detectionBallon from '../../assets/ballon_img.png'
-import processingBallon from '../../assets/ballon_clean_img.png'
+import detectionballoon from '../../assets/balloon_img.png'
+import processingballoon from '../../assets/balloon_clean_img.png'
 import { SecurityCamera, Siren } from '@phosphor-icons/react'
 import { convertCoordinatesToAddress } from '../../utils/kakaomap'
 
-const BallonListItem = ({ data }) => {
+const BalloonListItem = ({ data }) => {
   const [address, setAddress] = useState('')
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const BallonListItem = ({ data }) => {
   }, [data.latitude, data.longitude])
 
   return (
-    <div className="ballon-list-item border rounded p-3 mb-3" style={{ backgroundColor: '#f8f9fa', width: '90%', margin: 'auto' }}>
+    <div className="balloon-list-item border rounded p-3 mb-3" style={{ backgroundColor: '#f8f9fa', width: '90%', margin: 'auto' }}>
       <div className="d-flex align-items-center justify-content-between mb-2">
         <div className="detect-container">
           <div className="badge text-dark me-2 d-flex align-items-center justify-content-center" style={{ backgroundColor: '#FFF2B1', maxWidth: '80px' }}>
@@ -31,7 +31,7 @@ const BallonListItem = ({ data }) => {
           </div>
           <div className="text-muted">{new Date(data.detection_time).toLocaleString('ko-KR')}</div>
         </div>
-        <img src={detectionBallon} alt="Detection" className="img-fluid rounded mb-3" style={{ maxHeight: '150px', minHeight: '80px' }} />
+        <img src={detectionballoon} alt="Detection" className="img-fluid rounded mb-3" style={{ maxHeight: '150px', minHeight: '80px' }} />
       </div>
       {data.processing_state === '처리 완료' && (
         <div className="d-flex align-items-center justify-content-between mb-2">
@@ -45,11 +45,11 @@ const BallonListItem = ({ data }) => {
             <div className="text-muted">{new Date(data.processing_time).toLocaleString('ko-KR')}</div>
             <div className="fw-bold">특이사항 : {data.description || '없음'}</div>
           </div>
-          <img src={processingBallon} alt="Processing" className="img-fluid rounded mb-3" style={{ maxHeight: '150px', minHeight: '80px' }} />
+          <img src={processingballoon} alt="Processing" className="img-fluid rounded mb-3" style={{ maxHeight: '150px', minHeight: '80px' }} />
         </div>
       )}
     </div>
   )
 }
 
-export default BallonListItem
+export default BalloonListItem

@@ -8,12 +8,12 @@ export const instance = axios.create({
 })
 
 /**
- * Ballon들의 List를 가져오는 함수
+ * balloon들의 List를 가져오는 함수
  *
- * @returns {object} ballons
+ * @returns {object} balloons
  */
-export const getBallonListData = () => {
-  //   return instance.get('/ballons')
+export const getballoonListData = () => {
+  //   return instance.get('/balloons')
 
   return mockData.data
 }

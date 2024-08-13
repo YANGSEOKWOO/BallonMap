@@ -1,24 +1,24 @@
 import React, { useState } from 'react'
 import { Map } from 'react-kakao-maps-sdk'
 import Marker from '../atoms/Marker'
-import Sidebar from '../molecules/Sidebar'
-import MarkerModal from '../molecules/MarkerModal'
+import Sidebar from '../organisms/Sidebar'
+import MarkerModal from '../organisms/MarkerModal'
 
-const DesktopLayout = ({ ballons, children }) => {
+const DesktopScreen = ({ balloons, children }) => {
   const [mapCenter, setMapCenter] = useState({ lat: 33.450701, lng: 126.570667 })
   const [selectedMarker, setSelectedMarker] = useState(null)
   const [modalShow, setModalShow] = useState(false)
 
-  const handleBallonClick = (latitude, longitude) => {
+  const handleballoonClick = (latitude, longitude) => {
     setMapCenter({ lat: latitude, lng: longitude })
   }
 
-  const handleMarkerClick = (ballon) => {
+  const handleMarkerClick = (balloon) => {
     setSelectedMarker({
-      id: ballon.id,
-      lat: ballon.latitude,
-      lng: ballon.longitude,
-      isCleaned: ballon.processing_state === '처리 완료',
+      id: balloon.id,
+      lat: balloon.latitude,
+      lng: balloon.longitude,
+      isCleaned: balloon.processing_state === '처리 완료',
     })
     setModalShow(true)
   }
@@ -30,16 +30,16 @@ const DesktopLayout = ({ ballons, children }) => {
 
   return (
     <div style={{ height: '100%', width: '100%' }} className="d-flex">
-      <Sidebar ballons={ballons} onBallonClick={handleBallonClick} />
+      <Sidebar balloons={balloons} onballoonClick={handleballoonClick} />
       <Map center={mapCenter} style={{ width: '100%', height: '100%' }} level={4}>
-        {ballons.map((ballon) => (
+        {balloons.map((balloon) => (
           <Marker
-            key={ballon.id}
-            lat={ballon.latitude}
-            lng={ballon.longitude}
-            isCleaned={ballon.processing_state === '처리 완료'}
-            id={ballon.id}
-            onClick={() => handleMarkerClick(ballon)} // 마커 클릭 시 호출될 함수 전달
+            key={balloon.id}
+            lat={balloon.latitude}
+            lng={balloon.longitude}
+            isCleaned={balloon.processing_state === '처리 완료'}
+            id={balloon.id}
+            onClick={() => handleMarkerClick(balloon)} // 마커 클릭 시 호출될 함수 전달
           />
         ))}
       </Map>
@@ -48,4 +48,4 @@ const DesktopLayout = ({ ballons, children }) => {
   )
 }
 
-export default DesktopLayout
+export default DesktopScreen

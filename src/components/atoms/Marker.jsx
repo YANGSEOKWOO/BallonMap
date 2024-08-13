@@ -1,7 +1,7 @@
 import React from 'react'
 import { MapMarker } from 'react-kakao-maps-sdk'
-import blueballon from '../../assets/blueballon.png'
-import redballon from '../../assets/redballon.png'
+import blueballoon from '../../assets/blueballoon.png'
+import redballoon from '../../assets/redballoon.png'
 
 /**
  * 위도와 경도를 받고, 그 위치에 마커를 생성하는 함수
@@ -15,13 +15,13 @@ import redballon from '../../assets/redballon.png'
  * @returns {JSX.Element} 마커 컴포넌트
  */
 export default function Marker({ lat, lng, isCleaned, id, onClick }) {
-  const ballonImage = isCleaned ? blueballon : redballon
+  const balloonImage = isCleaned ? blueballoon : redballoon
 
   return (
     <MapMarker
       position={{ lat, lng }}
       image={{
-        src: ballonImage,
+        src: balloonImage,
         size: { width: 'auto', height: 'auto' },
         options: { offset: { x: '50%', y: '100%' } },
       }}

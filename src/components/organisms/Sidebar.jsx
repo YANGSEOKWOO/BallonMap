@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import { BellRinging, Envelope, Balloon } from '@phosphor-icons/react'
-import BallonListItem from '../atoms/BallonListItem'
+import BalloonListItem from '../atoms/BalloonListItem'
 import './css/Sidebar.css'
 import { Badge } from 'react-bootstrap'
 
-const Sidebar = ({ ballons, onBallonClick }) => {
+const Sidebar = ({ balloons, onballoonClick }) => {
   const [isConfirmed, setIsConfirmed] = useState(false)
 
   const handleCheckboxChange = (e) => {
     setIsConfirmed(e.target.checked)
   }
 
-  const handleBallonListClick = (event) => {
+  const handleballoonListClick = (event) => {
     event.stopPropagation() // 이벤트 버블링 방지
     // 오프캔버스를 여는 로직
   }
@@ -21,7 +21,7 @@ const Sidebar = ({ ballons, onBallonClick }) => {
   const handleReportClick = (event) => {
     event.stopPropagation()
   }
-  console.log('ballons:', ballons)
+  console.log('balloons:', balloons)
 
   return (
     <>
@@ -31,8 +31,8 @@ const Sidebar = ({ ballons, onBallonClick }) => {
           <Balloon size={40} weight="fill" alt="logo" />
         </div>
         <div className="side-bar-menu">
-          <div className="side-bar-menu-ballon-list border-top d-flex justify-content-center align-items-center">
-            <BellRinging id="bell" className="my-3 mx-2" size={32} weight="fill" alt="목록보기" data-bs-toggle="offcanvas" data-bs-target="#ballon_list" onClick={handleBallonListClick} />
+          <div className="side-bar-menu-balloon-list border-top d-flex justify-content-center align-items-center">
+            <BellRinging id="bell" className="my-3 mx-2" size={32} weight="fill" alt="목록보기" data-bs-toggle="offcanvas" data-bs-target="#balloon_list" onClick={handleballoonListClick} />
             <Badge
               bg="danger"
               style={{
@@ -41,7 +41,7 @@ const Sidebar = ({ ballons, onBallonClick }) => {
                 top: '82px',
               }}
             >
-              {ballons.length}
+              {balloons.length}
             </Badge>
           </div>
           <div className="side-bar-menu-report border-top border-bottom d-flex justify-content-center align-items-center">
@@ -51,19 +51,19 @@ const Sidebar = ({ ballons, onBallonClick }) => {
       </div>
 
       {/* 풍선 목록 오프캔버스 */}
-      <div className="ballon-list">
-        <div className="offcanvas offcanvas-start border rounded-end" data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="ballon_list" style={{ marginLeft: '60px', zIndex: 900 }}>
+      <div className="balloon-list">
+        <div className="offcanvas offcanvas-start border rounded-end" data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="balloon_list" style={{ marginLeft: '60px', zIndex: 900 }}>
           <div className="offcanvas-header border-bottom" style={{ height: '72px' }}>
-            <h5 className="offcanvas-title" id="#ballon_list">
-              BallonMap
+            <h5 className="offcanvas-title" id="#balloon_list">
+              balloonMap
             </h5>
-            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#ballon_list"></button>
+            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#balloon_list"></button>
           </div>
           <div className="offcanvas-body">
             <h5>현재 발견된 오물풍선 목록</h5>
-            {ballons.map((ballon) => (
-              <div key={ballon.id} onClick={() => onBallonClick(ballon.latitude, ballon.longitude)} style={{ cursor: 'pointer' }}>
-                <BallonListItem data={ballon} />
+            {balloons.map((balloon) => (
+              <div key={balloon.id} onClick={() => onballoonClick(balloon.latitude, balloon.longitude)} style={{ cursor: 'pointer' }}>
+                <BalloonListItem data={balloon} />
               </div>
             ))}
           </div>

@@ -5,12 +5,9 @@ import { useState } from 'react'
 import { ChatTeardrop, ChatTeardropText, Envelope, Siren } from '@phosphor-icons/react'
 import './css/MobileLayout.css'
 import TopBanner from '../atoms/TopBanner'
-// import MobileSideBar from 'components/Sidebar/MobileSidebar';
-// import MobileNavbar from 'components/Navbar/MobileNavbar';
-// import COLOR from 'constants/color.constant';
 
-const MobileLayout = ({ ballons }) => {
-  console.log('ballons:', ballons)
+const MobileScreen = ({ balloons }) => {
+  console.log('balloons:', balloons)
   const [mapCenter, setMapCenter] = useState({ lat: 33.450701, lng: 126.570667 })
   return (
     <div style={{ height: '100%', width: '100%' }} className="d-flex">
@@ -18,14 +15,14 @@ const MobileLayout = ({ ballons }) => {
         <TopBanner />
       </div>
       <Map center={mapCenter} style={{ width: '100%', height: '100%' }} level={4}>
-        {ballons.map((ballon) => (
+        {balloons.map((balloon) => (
           <Marker
-            key={ballon.id}
-            lat={ballon.latitude}
-            lng={ballon.longitude}
-            isCleaned={ballon.processing_state === '처리 완료'}
-            id={ballon.id}
-            onClick={() => handleMarkerClick(ballon)} // 마커 클릭 시 호출될 함수 전달
+            key={balloon.id}
+            lat={balloon.latitude}
+            lng={balloon.longitude}
+            isCleaned={balloon.processing_state === '처리 완료'}
+            id={balloon.id}
+            onClick={() => handleMarkerClick(balloon)} // 마커 클릭 시 호출될 함수 전달
           />
         ))}
       </Map>
@@ -40,4 +37,4 @@ const MobileLayout = ({ ballons }) => {
   )
 }
 
-export default MobileLayout
+export default MobileScreen
