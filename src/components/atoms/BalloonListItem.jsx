@@ -5,17 +5,6 @@ import { SecurityCamera, Siren } from '@phosphor-icons/react'
 import { convertCoordinatesToAddress } from '../../utils/kakaomap'
 
 const BalloonListItem = ({ data }) => {
-  const [address, setAddress] = useState('')
-
-  useEffect(() => {
-    const fetchAddress = async () => {
-      const result = await convertCoordinatesToAddress(data.latitude, data.longitude)
-      setAddress(result)
-    }
-
-    fetchAddress()
-  }, [data.latitude, data.longitude])
-
   return (
     <div className="balloon-list-item border rounded p-3 mb-3" style={{ backgroundColor: '#f8f9fa', width: '90%', margin: 'auto' }}>
       <div className="d-flex align-items-center justify-content-between mb-2">
@@ -27,7 +16,7 @@ const BalloonListItem = ({ data }) => {
             </p>
           </div>
           <div className="fw-bold" style={{ fontSize: '1.2rem' }}>
-            {address || '주소 불러오는 중...'}
+            {data.address || '주소 불러오는 중...'}
           </div>
           <div className="text-muted">{new Date(data.detection_time).toLocaleString('ko-KR')}</div>
         </div>

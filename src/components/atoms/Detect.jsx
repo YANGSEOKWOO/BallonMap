@@ -1,3 +1,5 @@
+import { SecurityCamera } from '@phosphor-icons/react'
+
 export default function Detect() {
   return (
     <div className="badge text-dark me-2 d-flex align-items-center justify-content-center" style={{ backgroundColor: '#FFF2B1', maxWidth: '80px' }}>

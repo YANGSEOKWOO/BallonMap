@@ -9,7 +9,15 @@ const DesktopScreen = ({ balloons, children }) => {
   const [selectedMarker, setSelectedMarker] = useState(null)
   const [modalShow, setModalShow] = useState(false)
 
+  /**
+   * 위도 경도를 받고, 그 위치로 화면을 이동하는 함수
+   *
+   * @param {string} latitude 위도
+   * @param {string} longitude 경도
+   */
   const handleballoonClick = (latitude, longitude) => {
+    console.log('lat:', latitude)
+    console.log('log:', longitude)
     setMapCenter({ lat: latitude, lng: longitude })
   }
 
@@ -19,6 +27,11 @@ const DesktopScreen = ({ balloons, children }) => {
       lat: balloon.latitude,
       lng: balloon.longitude,
       isCleaned: balloon.processing_state === '처리 완료',
+      detectionImage: balloon.detection_image,
+      detectionTime: balloon.detection_time,
+      processingImage: balloon.processing_image,
+      processingTime: balloon.processing_time,
+      description: balloon.description,
     })
     setModalShow(true)
   }
