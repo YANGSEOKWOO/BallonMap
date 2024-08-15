@@ -21,7 +21,6 @@ const Sidebar = ({ balloons, onballoonClick }) => {
   const handleReportClick = (event) => {
     event.stopPropagation()
   }
-  console.log('balloons:', balloons)
 
   return (
     <>
@@ -60,7 +59,10 @@ const Sidebar = ({ balloons, onballoonClick }) => {
             <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#balloon_list"></button>
           </div>
           <div className="offcanvas-body">
-            <h5>현재 발견된 오물풍선 목록</h5>
+            <div className="container d-flex justify-content-start align-items-center mb-3 gap-2">
+              <h5 className="m-0">현재 발견된 오물풍선 목록</h5>
+              <Badge bg="danger">{balloons.length}</Badge>
+            </div>
             {balloons.map((balloon) => (
               <div key={balloon.id} onClick={() => onballoonClick(balloon.latitude, balloon.longitude)} style={{ cursor: 'pointer' }}>
                 <BalloonListItem data={balloon} />
