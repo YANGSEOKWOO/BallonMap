@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Map } from 'react-kakao-maps-sdk'
-import Marker from '../atoms/Marker'
+import AppMarker from '../atoms/AppMarker'
 import { ChatTeardropText, Siren } from '@phosphor-icons/react'
 import './css/MobileLayout.css'
 import TopBanner from '../atoms/TopBanner'
-import ModalBallonList from '../molecules/ModalBalloonList'
+import ModalBalloonList from '../molecules/ModalBalloonList'
 import ModalReport from '../molecules/ModalReport'
 import { Badge } from 'react-bootstrap'
 
@@ -21,6 +21,13 @@ const MobileScreen = ({ balloons }) => {
   const handleOpenReportModal = () => setShowReportModal(true)
   const handleCloseReportModal = () => setShowReportModal(false)
 
+  const handleballoonClick = (latitude, longitude) => {
+    console.log('lat:', latitude)
+    console.log('log:', longitude)
+    setShowListModal(false)
+    setMapCenter({ lat: latitude, lng: longitude })
+  }
+
   return (
     <div style={{ height: '100%', width: '100%' }} className="d-flex">
       <div className="banner-container">
@@ -28,7 +35,7 @@ const MobileScreen = ({ balloons }) => {
       </div>
       <Map center={mapCenter} style={{ width: '100%', height: '100%' }} level={4}>
         {balloons.map((balloon) => (
-          <Marker key={balloon.id} lat={balloon.latitude} lng={balloon.longitude} isCleaned={balloon.processing_state === '처리 완료'} id={balloon.id} onClick={() => handleMarkerClick(balloon)} />
+          <AppMarker key={balloon.id} lat={balloon.latitude} lng={balloon.longitude} isCleaned={balloon.processing_state === '처리 완료'} id={balloon.id} onClick={() => handleMarkerClick(balloon)} />
         ))}
       </Map>
 
@@ -53,7 +60,7 @@ const MobileScreen = ({ balloons }) => {
       </div>
 
       {/* 분리된 모달 컴포넌트 호출 */}
-      <ModalBallonList show={showListModal} handleClose={handleCloseListModal} balloons={balloons} />
+      <ModalBalloonList show={showListModal} handleClose={handleCloseListModal} balloons={balloons} onballoonClick={handleballoonClick} />
       <ModalReport show={showReportModal} handleClose={handleCloseReportModal} />
     </div>
   )

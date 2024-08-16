@@ -12,10 +12,12 @@ export const instance = axios.create({
  *
  * @returns {object} balloons
  */
-export const getballoonListData = () => {
-  //   return instance.get('/balloons')
+export const getballoonListData = async () => {
+  const data = await instance.get('/api/v1/balloons/')
+  console.log('data:', data.data.data)
+  return data.data.data
 
-  return mockData.data
+  // return mockData.data
 }
 
 const mockData = {
