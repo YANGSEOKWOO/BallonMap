@@ -14,7 +14,7 @@ import redballoon from '../../assets/redballoon.png'
  *
  * @returns {JSX.Element} 마커 컴포넌트
  */
-export default function Marker({ lat, lng, isCleaned, id, onClick }) {
+export default function WebMarker({ lat, lng, isCleaned, id, onClick }) {
   const balloonImage = isCleaned ? blueballoon : redballoon
 
   return (

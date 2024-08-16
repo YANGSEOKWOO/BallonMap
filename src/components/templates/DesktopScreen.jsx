@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Map } from 'react-kakao-maps-sdk'
-import Marker from '../atoms/Marker'
+import WebMarker from '../atoms/WebMarker'
 import Sidebar from '../organisms/Sidebar'
 import MarkerModal from '../organisms/MarkerModal'
 
@@ -8,6 +8,7 @@ const DesktopScreen = ({ balloons, children }) => {
   const [mapCenter, setMapCenter] = useState({ lat: 33.450701, lng: 126.570667 })
   const [selectedMarker, setSelectedMarker] = useState(null)
   const [modalShow, setModalShow] = useState(false)
+  console.log('desk', balloons)
 
   /**
    * 위도 경도를 받고, 그 위치로 화면을 이동하는 함수
@@ -46,7 +47,7 @@ const DesktopScreen = ({ balloons, children }) => {
       <Sidebar balloons={balloons} onballoonClick={handleballoonClick} />
       <Map center={mapCenter} style={{ width: '100%', height: '100%' }} level={4}>
         {balloons.map((balloon) => (
-          <Marker
+          <WebMarker
             key={balloon.id}
             lat={balloon.latitude}
             lng={balloon.longitude}

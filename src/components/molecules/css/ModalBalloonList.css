@@ -1,0 +1,13 @@
+.modal {
+  display: block; /* I added this to see the modal, you don't need this */
+}
+
+/* Important part */
+/* .modal-dialog {
+  overflow-y: initial !important;
+} */
+.modal-body {
+  height: 50vh;
+  overflow-y: auto;
+  padding: 0px;
+}
