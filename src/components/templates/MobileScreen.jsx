@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Map } from 'react-kakao-maps-sdk'
+import { Map, MarkerClusterer } from 'react-kakao-maps-sdk'
 import AppMarker from '../atoms/AppMarker'
 import { ChatTeardropText, Siren } from '@phosphor-icons/react'
 import './css/MobileLayout.css'
@@ -34,9 +34,11 @@ const MobileScreen = ({ balloons }) => {
         <TopBanner />
       </div>
       <Map center={mapCenter} style={{ width: '100%', height: '100%' }} level={4}>
-        {balloons.map((balloon) => (
-          <AppMarker key={balloon.id} lat={balloon.latitude} lng={balloon.longitude} isCleaned={balloon.processing_state === '처리 완료'} id={balloon.id} onClick={() => handleMarkerClick(balloon)} />
-        ))}
+        <MarkerClusterer averageCenter={true} minLevel={4}>
+          {balloons.map((balloon) => (
+            <AppMarker key={balloon.id} lat={balloon.latitude} lng={balloon.longitude} isCleaned={balloon.processing_state === '처리 완료'} id={balloon.id} />
+          ))}
+        </MarkerClusterer>
       </Map>
 
       {/* 제보하기 아이콘 */}
