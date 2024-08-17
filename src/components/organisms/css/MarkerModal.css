@@ -1,14 +1,22 @@
+/* 너비와 높이를 조정 */
 .custom-modal {
-  max-width: 60%; /* 너비를 60%로 조정 */
-  height: 50vh !important;
+  max-width: 60%;
+  height: 50vh;
 }
 
+/* modal-content를 100% 높이로 설정 */
 .custom-modal .modal-content {
   height: 100%;
 }
 
+/* 모달 바디에 패딩 추가 */
 .modal-body-padding {
-  padding: 50px; /* 원하는 padding 값을 설정 */
+  padding: 30px !important; /* 패딩 값을 추가하고, 중요한 스타일로 설정 */
   height: 100%;
-  box-sizing: border-box; /* padding이 전체 높이에 포함되도록 설정 */
+  box-sizing: border-box; /* padding이 높이에 포함되도록 설정 */
+}
+
+/* modal-body가 제대로 크기를 가지게 설정 */
+.custom-modal .modal-body {
+  height: 100%;
 }
