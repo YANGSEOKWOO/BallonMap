@@ -48,8 +48,8 @@ const ResponsiveLayout = ({ children }) => {
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
-      <Desktop balloons={data} />
-      <Mobile balloons={data} />
+      <Desktop balloons={data.balloons} />
+      <Mobile balloons={data.balloons} />
     </div>
   )
 }

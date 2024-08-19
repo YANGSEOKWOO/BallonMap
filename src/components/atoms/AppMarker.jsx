@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { MapMarker } from 'react-kakao-maps-sdk'
+import { MapMarker, Circle } from 'react-kakao-maps-sdk'
 import blueballoon from '../../assets/blueballoon.png'
 import redballoon from '../../assets/redballoon.png'
-import { Circle } from 'react-kakao-maps-sdk'
 
 /**
  * 위도와 경도를 받고, 그 위치에 마커를 생성하는 함수
@@ -22,42 +21,42 @@ export default function AppMarker({ lat, lng, isCleaned, id, onClick }) {
 
   return (
     <>
+      {/* 마커 */}
       <MapMarker
         position={{ lat, lng }}
         image={{
           src: balloonImage,
-          size: { width: '24', height: '28' },
-          options: { offset: { x: 16, y: 35 } }, // 오프셋을 통해 마커 위치 조정
+          size: { width: 24, height: 28 }, // 이미지 크기
+          options: { offset: { x: 12, y: 28 } }, // 마커의 하단 중앙이 좌표에 맞도록 오프셋 설정
         }}
         clickable={true}
         onClick={() => {
           console.log('클릭!')
-          setIsOpen(!isOpen)
-          console.log('isOpen:', isOpen)
+          setIsOpen(!isOpen) // 클릭 시 인포윈도우 상태 토글
         }}
       >
-        <Circle
-          center={{
-            lat: lat,
-            lng: lng,
-          }}
-          radius={100}
-          strokeWeight={2}
-          strokeColor={circleColor} // 선의 색깔입니다
-          strokeOpacity={1} // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-          strokeStyle={'solid'} // 선의 스타일 입니다
-          fillColor={circleColor} // 채우기 색깔입니다
-          fillOpacity={0.7} // 채우기 불투명도 입니다
-        />
-        {/* 인포윈도우가 열렸을 때 표시 */}
-        {isOpen ? (
+        {/* 인포윈도우 */}
+        {isOpen && (
           <div>
             Hello World! <br />
           </div>
-        ) : (
-          ''
         )}
       </MapMarker>
+
+      {/* 원형 표시 (Circle) */}
+      <Circle
+        center={{
+          lat: lat,
+          lng: lng,
+        }}
+        radius={100}
+        strokeWeight={2}
+        strokeColor={circleColor} // 선의 색깔
+        strokeOpacity={1} // 선의 불투명도
+        strokeStyle={'solid'} // 선의 스타일
+        fillColor={circleColor} // 채우기 색깔
+        fillOpacity={0.7} // 채우기 불투명도
+      />
     </>
   )
 }
