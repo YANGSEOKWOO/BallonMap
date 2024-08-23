@@ -5,7 +5,7 @@ import Detect from '../atoms/Detect'
 import { convertCoordinatesToAddress } from '../../utils/kakaomap'
 import { formatDate } from '../../utils/convert'
 
-export default function ModalTopContent({ isCleaned, lat, lng, time }) {
+export default function ModalTopContent({ isCleaned, lat, lng, time, isMobile }) {
   const [address, setAddress] = useState(null) // 주소 상태 관리
   const [isLoading, setIsLoading] = useState(true) // 로딩 상태 관리
   const [error, setError] = useState(null) // 에러 상태 관리
@@ -32,7 +32,8 @@ export default function ModalTopContent({ isCleaned, lat, lng, time }) {
   return (
     <div>
       {/* 처리 중일때, 처리 전일때 구분 */}
-      {isCleaned ? <Process /> : <Detect />}
+      {/* 모바일화면이라면 이부분은 안나옴 */}
+      {isMobile ? '' : isCleaned ? <Process /> : <Detect />}
       <div className="d-flex align-items-center justify-content-between p-3">
         {/* 아이콘과 텍스트 컨테이너 */}
         <div className="d-flex align-items-center">

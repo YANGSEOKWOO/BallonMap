@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Badge } from 'react-bootstrap'
-import { CheckCircle, Warning } from '@phosphor-icons/react'
 import { convertCoordinatesToAddress } from '../../utils/kakaomap'
 import { formatDate } from '../../utils/convert'
+import ModalInfo from '../molecules/ModalInfo'
+import StatusBar from './StatusBar'
 
 /**
  * 특정 풍선에 대한 인포윈도우
@@ -15,7 +15,7 @@ import { formatDate } from '../../utils/convert'
  */
 export default function InfoWindow({ isCleaned, lat, lng, id, time }) {
   const [address, setAddress] = useState('') // 주소 상태 초기화
-
+  const [showModal, setShowModal] = useState(false) // 모달의 열림/닫힘 상태
   useEffect(() => {
     async function fetchAddress() {
       try {
@@ -29,39 +29,13 @@ export default function InfoWindow({ isCleaned, lat, lng, id, time }) {
 
     fetchAddress()
   }, []) // lat, lng가 변경될 때마다 호출
+  const handleOpenModal = (id) => {
+    setShowModal(true) // 모달 열기
+  }
 
-  const StatusBar = ({ isCleaned }) => {
-    const badgeStyle = {
-      display: 'inline-flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: '0.25rem 0.75rem',
-      borderRadius: '1rem',
-      fontSize: '1rem',
-      fontWeight: 'bold',
-      backgroundColor: isCleaned ? '#CBE9FF' : '#FFF2B1',
-      color: isCleaned ? '#258CE6' : '#FAB002',
-    }
-
-    return (
-      <>
-        {isCleaned ? (
-          <div style={badgeStyle}>
-            <CheckCircle color="#258CE6" weight="fill" />
-            <p className="mb-0 ms-2" style={{ marginBottom: 0, marginLeft: '0.5rem' }}>
-              처리 완료
-            </p>
-          </div>
-        ) : (
-          <div style={badgeStyle}>
-            <Warning color="#FAB002" weight="fill" />
-            <p className="mb-0 ms-2" style={{ marginBottom: 0, marginLeft: '0.5rem' }}>
-              처리 전
-            </p>
-          </div>
-        )}
-      </>
-    )
+  // 모달 닫기 함수
+  const handleCloseModal = () => {
+    setShowModal(false)
   }
 
   return (
@@ -86,10 +60,13 @@ export default function InfoWindow({ isCleaned, lat, lng, id, time }) {
             justifyContent: 'center', // 가로 가운데 정렬
             alignItems: 'center', // 세로 가운데 정렬
           }}
+          onClick={() => handleOpenModal(id)}
         >
           <span className="fw-bold">현황 확인하기</span>
         </button>
       </div>
+      {/* InfoModal 컴포넌트 호출 */}
+      <ModalInfo show={showModal} onClose={handleCloseModal} id={id} />
     </div>
   )
 }

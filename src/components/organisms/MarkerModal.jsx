@@ -2,7 +2,7 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import ModalTopContent from '../molecules/ModalTopContent'
-import ModalBottomContent from '../molecules/ModalBottomContent'
+import { WebModalBottomContent } from '../molecules/ModalBottomContent'
 import './css/MarkerModal.css'
 
 export default function MarkerModal({ show, handleClose, markerData }) {
@@ -16,7 +16,7 @@ export default function MarkerModal({ show, handleClose, markerData }) {
         <Modal.Header closeButton className="border-0 pb-0"></Modal.Header>
         <Modal.Body className="modal-body-padding">
           <ModalTopContent isCleaned={markerData.isCleaned} lat={markerData.lat} lng={markerData.lng} time={markerData.processingTime ? markerData.processingTime : markerData.detectionTime} />
-          <ModalBottomContent
+          <WebModalBottomContent
             isCleaned={markerData.isCleaned}
             detectImage={markerData.detectionImage}
             detectTime={markerData.detectionTime}

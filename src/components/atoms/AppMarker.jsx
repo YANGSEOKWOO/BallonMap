@@ -45,7 +45,7 @@ export default function AppMarker({ lat, lng, isCleaned, id, onClick, time }) {
         clickable={true} // 오버레이도 클릭 가능하게
         zIndex={1} // 마커 위로 위치하도록 zIndex 설정
       >
-        <InfoWindow isCleaned={isCleaned} lat={lat} lng={lng} time={time} />
+        <InfoWindow isCleaned={isCleaned} lat={lat} lng={lng} time={time} id={id} />
       </CustomOverlayMap>
       {/* 원형 표시 (Circle) */}
       <Circle

@@ -20,6 +20,12 @@ export const getballoonListData = async () => {
   // return mockData.data
 }
 
+export const getBallonData = async ({ balloon_id }) => {
+  const data = await instance.get(`/api/v1/balloons/${balloon_id}`)
+  console.log('data:', data.data.data)
+  return data.data.data
+}
+
 const mockData = {
   success: true,
   data: [
