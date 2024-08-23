@@ -1,6 +1,4 @@
 import React from 'react'
-import processingballoon from '../../assets/balloon_clean_img.png'
-import detectingballoon from '../../assets/balloon_img.png'
 import PendingUpdate from '../atoms/PendingUpdate'
 import { formatDate } from '../../utils/convert'
 function StatusHeader({ status, icon, color, fontColor }) {
@@ -46,7 +44,7 @@ function TimelineItem({ status, time, result, image }) {
         </p>
         {status.title === true ? <span className="mt-2 fw-bold text-danger">특이사항 : {result || '없음'}</span> : ''}
       </div>
-      <div>{status.title ? <PendingUpdate isCleaned={true} image={processingballoon} /> : <PendingUpdate isCleaned={false} />}</div>
+      <div>{status.title ? <PendingUpdate isCleaned={true} image={image} /> : <PendingUpdate isCleaned={false} />}</div>
     </div>
   )
 }

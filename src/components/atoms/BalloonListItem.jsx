@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import detectionballoon from '../../assets/balloon_img.png'
-import processingballoon from '../../assets/balloon_clean_img.png'
 import { SecurityCamera, Siren } from '@phosphor-icons/react'
 import { convertCoordinatesToAddress } from '../../utils/kakaomap'
 
@@ -15,6 +13,7 @@ const BalloonListItem = ({ data }) => {
         console.error(error) // 에러 발생 시 콘솔 출력
       })
   })
+  console.log('BallonList:data', data)
   return (
     <div className="balloon-list-item border rounded p-3 mb-3" style={{ backgroundColor: '#f8f9fa', width: '90%', margin: 'auto' }}>
       <div className="d-flex align-items-center justify-content-between mb-2">
@@ -30,7 +29,7 @@ const BalloonListItem = ({ data }) => {
           </div>
           <div className="text-muted">{new Date(data.detection_time).toLocaleString('ko-KR')}</div>
         </div>
-        <img src={detectionballoon} alt="Detection" className="img-fluid rounded mb-3" style={{ maxHeight: '150px', minHeight: '80px' }} />
+        <img src={data.detection_image} alt="Detection" className="img-fluid rounded mb-3" style={{ height: '120px', width: '120px' }} />
       </div>
       {data.processing_state === '처리 완료' && (
         <div className="d-flex align-items-center justify-content-between mb-2">
@@ -44,7 +43,7 @@ const BalloonListItem = ({ data }) => {
             <div className="text-muted">{new Date(data.processing_time).toLocaleString('ko-KR')}</div>
             <div className="fw-bold">특이사항 : {data.description || '없음'}</div>
           </div>
-          <img src={processingballoon} alt="Processing" className="img-fluid rounded mb-3" style={{ maxHeight: '150px', minHeight: '80px' }} />
+          <img src={data.processing_image} alt="Processing" className="img-fluid rounded mb-3" style={{ height: '120px', width: '120px' }} />
         </div>
       )}
     </div>
