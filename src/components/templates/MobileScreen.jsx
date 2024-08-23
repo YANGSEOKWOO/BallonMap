@@ -36,7 +36,14 @@ const MobileScreen = ({ balloons }) => {
       <Map center={mapCenter} style={{ width: '100%', height: '100%' }} level={4}>
         <MarkerClusterer averageCenter={true} minLevel={4}>
           {balloons.map((balloon) => (
-            <AppMarker key={balloon.id} lat={balloon.latitude} lng={balloon.longitude} isCleaned={balloon.processing_state === '처리 완료'} id={balloon.id} />
+            <AppMarker
+              key={balloon.id}
+              lat={balloon.latitude}
+              lng={balloon.longitude}
+              isCleaned={balloon.processing_state === '처리 완료'}
+              id={balloon.id}
+              time={balloon.processing_time ? balloon.processing_time : balloon.detection_time}
+            />
           ))}
         </MarkerClusterer>
       </Map>

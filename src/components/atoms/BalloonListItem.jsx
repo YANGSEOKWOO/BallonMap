@@ -13,7 +13,6 @@ const BalloonListItem = ({ data }) => {
         console.error(error) // 에러 발생 시 콘솔 출력
       })
   })
-  console.log('BallonList:data', data)
   return (
     <div className="balloon-list-item border rounded p-3 mb-3" style={{ backgroundColor: '#f8f9fa', width: '90%', margin: 'auto' }}>
       <div className="d-flex align-items-center justify-content-between mb-2">
