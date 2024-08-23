@@ -3,7 +3,7 @@ import axios from 'axios'
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
   headers: {
-    'Content-Type': 'application.json',
+    'Content-Type': 'application/json',
   },
 })
 
@@ -24,6 +24,39 @@ export const getBallonData = async ({ balloon_id }) => {
   const data = await instance.get(`/api/v1/balloons/${balloon_id}`)
   console.log('data:', data.data.data)
   return data.data.data
+}
+
+// /api/v1/reported-balloons
+// {
+// 	"latitude": float,
+// 	"longitude": float,
+// 	"detection_time": datetime,
+// 	"detection_image": str
+// }
+// TODO :: FormData로 바꿔야함 일단 예시로 만들어놓ㄹ음
+
+/**
+ * 제보하는 POST 함수
+ * @param {number} latitude 위도
+ * @param {number} longtitde 경도
+ * @param {date} detection_time 발견시간
+ * @param {string} detection_image 발견이미지
+ */
+export const postBallonData = async ({ latitude, longitude, detection_time, detection_image }) => {
+  const data = {
+    latitude: latitude,
+    longitude: longitude,
+    detection_time: detection_time,
+    detection_image: detection_image,
+  }
+
+  try {
+    const response = await instance.post(`/api/v1/reported-balloons`, data)
+    return response.data // 요청 성공 시 응답 데이터를 반환
+  } catch (error) {
+    console.error('Error posting balloon data:', error)
+    throw error // 오류 발생 시 상위 호출로 전달
+  }
 }
 
 const mockData = {

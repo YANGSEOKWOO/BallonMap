@@ -5,9 +5,13 @@ import { BellRinging, Envelope, Balloon } from '@phosphor-icons/react'
 import BalloonListItem from '../atoms/BalloonListItem'
 import './css/Sidebar.css'
 import { Badge } from 'react-bootstrap'
+import ModalLocation from '../molecules/ModalLocation'
+import { convertCoordinatesToAddress } from '../../utils/kakaomap'
 
 const Sidebar = ({ balloons, onballoonClick }) => {
   const [isConfirmed, setIsConfirmed] = useState(false)
+  const [showLocationModal, setShowLocationModal] = useState(false)
+  const [selectedLocation, setSelectedLocation] = useState('') // 선택된 위치 저장
 
   const handleCheckboxChange = (e) => {
     setIsConfirmed(e.target.checked)
@@ -20,6 +24,18 @@ const Sidebar = ({ balloons, onballoonClick }) => {
 
   const handleReportClick = (event) => {
     event.stopPropagation()
+  }
+
+  const handleLocationOpenModal = () => {
+    setShowLocationModal(true)
+  }
+  const handleLocationCloseModal = () => {
+    setShowLocationModal(false)
+  }
+
+  const handlePositionSelect = async (position) => {
+    const address = await convertCoordinatesToAddress(position.lat, position.lng)
+    setSelectedLocation(address)
   }
 
   return (
@@ -87,7 +103,15 @@ const Sidebar = ({ balloons, onballoonClick }) => {
                 <label htmlFor="location" className="form-label">
                   오물풍선 발견 위치를 작성해주세요!
                 </label>
-                <input type="text" className="form-control" id="location" placeholder="이곳에 작성해주세요!" />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="location"
+                  value={selectedLocation} // 선택된 위치를 여기에 표시
+                  placeholder="이곳에 작성해주세요!"
+                  onClick={handleLocationOpenModal}
+                  readOnly
+                />
               </div>
               <div className="mb-3">
                 <label htmlFor="time" className="form-label">
@@ -117,6 +141,7 @@ const Sidebar = ({ balloons, onballoonClick }) => {
           </div>
         </div>
       </div>
+      <ModalLocation show={showLocationModal} onClose={handleLocationCloseModal} onPositionSelect={handlePositionSelect} />
     </>
   )
 }
