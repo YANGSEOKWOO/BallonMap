@@ -13,7 +13,7 @@ function App() {
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
       <BrowserRouter>
         <Routes>
-          <Route path="entry" element={<ResponsiveLayout />} />
+          <Route path="/" element={<ResponsiveLayout />} />
         </Routes>
       </BrowserRouter>
     </ErrorBoundary>
