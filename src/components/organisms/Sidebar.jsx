@@ -8,6 +8,7 @@ import { Badge } from 'react-bootstrap'
 import ModalLocation from '../molecules/ModalLocation'
 import { convertCoordinatesToAddress } from '../../utils/kakaomap'
 import dayjs from 'dayjs'
+import { postBalloonData } from '../../apis'
 
 const Sidebar = ({ balloons, onballoonClick }) => {
   const [isConfirmed, setIsConfirmed] = useState(false)
@@ -17,6 +18,7 @@ const Sidebar = ({ balloons, onballoonClick }) => {
   const [imagePreview, setImagePreview] = useState(null) // 미리보기 이미지 상태
   const [imageError, setImageError] = useState(null) // 이미지 형식 오류 상태
   const [image, setImage] = useState(null) // 업로드된 이미지 파일
+  const [location, setLocation] = useState({ latitude: '', longitude: '' })
 
   const handleCheckboxChange = (e) => {
     setIsConfirmed(e.target.checked)
@@ -41,6 +43,10 @@ const Sidebar = ({ balloons, onballoonClick }) => {
   const handlePositionSelect = async (position) => {
     const address = await convertCoordinatesToAddress(position.lat, position.lng)
     setSelectedLocation(address)
+    setLocation({
+      latitude: position.lat,
+      longitude: position.lng,
+    })
   }
 
   const handleTimeChange = (e) => {
@@ -54,6 +60,7 @@ const Sidebar = ({ balloons, onballoonClick }) => {
       // 파일 형식 검사 (jpg, png만 허용)
       if (fileType === 'image/jpeg' || fileType === 'image/png') {
         setImageError(null) // 오류 상태 초기화
+        setImage(file) // 선택된 파일을 상태로 저장
         const reader = new FileReader()
         reader.onloadend = () => {
           setImagePreview(reader.result) // 미리보기 이미지 상태 업데이트
@@ -62,25 +69,26 @@ const Sidebar = ({ balloons, onballoonClick }) => {
       } else {
         setImageError('JPG 또는 PNG 형식의 파일만 업로드 가능합니다.') // 오류 메시지 설정
         setImagePreview(null) // 미리보기 제거
+        setImage(null) // 잘못된 파일이므로 이미지 상태 초기화
       }
     }
   }
   const handleFormSubmit = async (e) => {
     e.preventDefault()
 
-    // 선택된 위도와 경도를 분리하여 추출 (위도, 경도는 콤마로 구분된 문자열로 가정)
-    const [latitude, longitude] = selectedLocation.replace('위도: ', '').replace(' 경도: ', '').split(',')
-
     try {
+      console.log('latitude:', location.latitude)
+      console.log('longitude:', location.longitude)
       // postBallonData 호출
-      await postBallonData({
-        latitude: parseFloat(latitude.trim()), // 위도
-        longitude: parseFloat(longitude.trim()), // 경도
+      await postBalloonData({
+        latitude: location.latitude, // 위도
+        longitude: location.longitude, // 경도
         detection_time: detectionTime, // 발견 시각
         detection_image: image, // 이미지 파일
       })
       alert('제보가 성공적으로 전송되었습니다!')
     } catch (error) {
+      console.error(error)
       alert('제보 전송에 실패했습니다.')
     }
   }

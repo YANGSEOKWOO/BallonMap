@@ -26,32 +26,30 @@ export const getBallonData = async ({ balloon_id }) => {
   return data.data.data
 }
 
-// /api/v1/reported-balloons
-// {
-// 	"latitude": float,
-// 	"longitude": float,
-// 	"detection_time": datetime,
-// 	"detection_image": str
-// }
-// TODO :: FormData로 바꿔야함 일단 예시로 만들어놓ㄹ음
-
 /**
- * 제보하는 POST 함수
+ * 제보하는 POST 함수 (이미지 + 기타 데이터 FormData로 전송, JSON 데이터도 포함)
  * @param {number} latitude 위도
- * @param {number} longtitde 경도
- * @param {date} detection_time 발견시간
- * @param {string} detection_image 발견이미지
+ * @param {number} longitude 경도
+ * @param {string} detection_time 발견시간 (YYYY-MM-DD HH:mm:ss 형식의 문자열)
+ * @param {File} detection_image 발견 이미지 (파일)
  */
-export const postBallonData = async ({ latitude, longitude, detection_time, detection_image }) => {
-  const data = {
-    latitude: latitude,
-    longitude: longitude,
-    detection_time: detection_time,
-    detection_image: detection_image,
-  }
+export const postBalloonData = async ({ latitude, longitude, detection_time, detection_image }) => {
+  const formData = new FormData()
+
+  // 이미지 파일을 FormData에 추가
+  formData.append('detection_image', detection_image)
+  formData.append('latitude', latitude)
+  formData.append('longitude', longitude)
+  formData.append('detection_time', detection_time)
 
   try {
-    const response = await instance.post(`/api/v1/reported-balloons`, data)
+    // API 요청
+    const response = await axios.post(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/balloons/reported-balloons`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+
     return response.data // 요청 성공 시 응답 데이터를 반환
   } catch (error) {
     console.error('Error posting balloon data:', error)
@@ -69,7 +67,7 @@ const mockData = {
       detection_image: 'detection_image2',
       detection_time: '2024-08-08T09:00:00',
       processing_image: 'processing_image2',
-      processing_time: '2024-08-10T14:00:00',
+      processing_time: '2024-08-10 14:00:00',
       processing_state: '처리 완료',
       description: '처리 완료',
     },
@@ -78,7 +76,7 @@ const mockData = {
       latitude: 37.55915668706214,
       longitude: 126.92536526611102,
       detection_image: 'detection_image3',
-      detection_time: '2024-08-09T09:00:00',
+      detection_time: '2024-08-09 09:00:00',
       processing_image: null,
       processing_time: null,
       processing_state: '발견',
@@ -111,7 +109,7 @@ const mockData = {
       latitude: 37.55518388656961,
       longitude: 126.92926237742505,
       detection_image: 'detection_image1',
-      detection_time: '2024-08-08T13:33:00',
+      detection_time: '2024-08-08 13:33:00',
       processing_image: null,
       processing_time: null,
       processing_state: '발견',
@@ -122,7 +120,7 @@ const mockData = {
       latitude: 37.561110808242056,
       longitude: 126.9831268386891,
       detection_image: 'detection_image3',
-      detection_time: '2024-08-09T09:00:00',
+      detection_time: '2024-08-09 09:00:00',
       processing_image: null,
       processing_time: null,
       processing_state: '발견',
@@ -133,7 +131,7 @@ const mockData = {
       latitude: 37.572045,
       longitude: 126.991089,
       detection_image: 'detection_image4',
-      detection_time: '2024-08-11T10:00:00',
+      detection_time: '2024-08-11 10:00:00',
       processing_image: 'processing_image4',
       processing_time: '2024-08-12T15:00:00',
       processing_state: '처리 완료',
