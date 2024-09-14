@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
-
 import DesktopScreen from '../templates/DesktopScreen'
 import MobileScreen from '../templates/MobileScreen'
 import { getballoonListData } from '../../apis'
+import Spinner from '../atoms/Spinner'
 
 const ResponsiveLayout = ({ children }) => {
   const [data, setData] = useState(null) // 풍선 데이터를 저장할 상태
@@ -34,22 +34,12 @@ const ResponsiveLayout = ({ children }) => {
     return isMobile && <MobileScreen balloons={balloons}></MobileScreen>
   }
 
-  if (loading) {
-    return <div>Loading...</div> // 로딩 중일 때 표시할 UI
-  }
-
-  if (error) {
-    return <div>Error: {error}</div> // 오류 발생 시 표시할 UI
-  }
-
-  if (!data) {
-    return <div>No data available</div> // 데이터가 없을 경우 처리
-  }
-
   return (
     <div style={{ height: '100%', width: '100%' }}>
-      <Desktop balloons={data.balloons} />
-      <Mobile balloons={data.balloons} />
+      {error && <div style={{ color: 'red' }}>Error: {error}</div>} {/* 에러 메시지를 표시하지만, 렌더링은 계속함 */}
+      {loading && <Spinner />} {/* 로딩 중일 때 스피너를 화면에 표시 */}
+      <Desktop balloons={data?.balloons || []} />
+      <Mobile balloons={data?.balloons || []} />
     </div>
   )
 }

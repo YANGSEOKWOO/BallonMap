@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { MapMarker, Circle, CustomOverlayMap } from 'react-kakao-maps-sdk'
 import blueballoon from '../../assets/blueballoon.png'
 import redballoon from '../../assets/redballoon.png'
@@ -24,6 +24,11 @@ export default function AppMarker({ lat, lng, isCleaned, id, onClick, time }) {
   const toggleInfoWindow = () => {
     setIsOpen((prevState) => !prevState) // 상태를 명확히 반전
   }
+  useEffect(() => {
+    if (isOpen) {
+      console.log('InfoWindow is now open')
+    }
+  }, [isOpen])
 
   return (
     <>
@@ -38,15 +43,19 @@ export default function AppMarker({ lat, lng, isCleaned, id, onClick, time }) {
         clickable={true}
         onClick={toggleInfoWindow} // 클릭 시 인포윈도우 토글
       />
-      {/* 인포윈도우 */}
-      <CustomOverlayMap
-        position={{ lat, lng }}
-        yAnchor={1.2} // y축 기준점 조정 (마커 위로 이동)
-        clickable={true} // 오버레이도 클릭 가능하게
-        zIndex={1} // 마커 위로 위치하도록 zIndex 설정
-      >
-        <InfoWindow isCleaned={isCleaned} lat={lat} lng={lng} time={time} id={id} />
-      </CustomOverlayMap>
+
+      {/* 인포윈도우가 열려 있을 때만 CustomOverlayMap을 렌더링 */}
+      {isOpen && (
+        <CustomOverlayMap
+          position={{ lat, lng }}
+          yAnchor={1.2} // y축 기준점 조정 (마커 위로 이동)
+          clickable={true} // 오버레이도 클릭 가능하게
+          zIndex={1} // 마커 위로 위치하도록 zIndex 설정
+        >
+          <InfoWindow isCleaned={isCleaned} lat={lat} lng={lng} time={time} id={id} />
+        </CustomOverlayMap>
+      )}
+
       {/* 원형 표시 (Circle) */}
       <Circle
         center={{ lat, lng }}
