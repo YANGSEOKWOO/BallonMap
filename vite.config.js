@@ -58,6 +58,5 @@ export default defineConfig(({ mode }) => {
     server: {
       host: true,
     },
-    base: '/',
   }
 })
