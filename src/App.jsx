@@ -1,6 +1,7 @@
 import React from 'react'
 import ResponsiveLayout from './components/Layout/ResponsiveLayout'
 import { ErrorBoundary } from 'react-error-boundary'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
   // TODO :: center위도 경도, 사용자의 위치를 가져와서 처음 위치를 볼 수 있도록 변환
@@ -10,7 +11,11 @@ function App() {
 
   return (
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
-      <ResponsiveLayout />
+      <BrowserRouter>
+        <Routes>
+          <Route path="entry" element={<ResponsiveLayout />} />
+        </Routes>
+      </BrowserRouter>
     </ErrorBoundary>
   )
 }
