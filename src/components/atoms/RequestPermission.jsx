@@ -1,14 +1,14 @@
 import { getMessaging, getToken } from 'firebase/messaging'
+import { messaging } from '../../firebase'
 
 // Get registration token. Initially this makes a network call, once retrieved
 // subsequent calls to getToken will return from cache.
 
-export default function requestPermission() {
+export default function RequestPermission() {
   console.log('Requesting permission...')
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
       console.log('Notification permission granted.')
-      const messaging = getMessaging()
       getToken(messaging, { vapidKey: 'BL6oABzSftdRmaeSIMegPzCdeEWOPk7D5DPGa8WhKOZWbYmsgem26BWX1gqIWbvsQ64XfIuMSNyYlKXQoK8hfaQ' })
         .then((currentToken) => {
           if (currentToken) {

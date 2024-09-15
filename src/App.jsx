@@ -2,13 +2,13 @@ import React from 'react'
 import ResponsiveLayout from './components/Layout/ResponsiveLayout'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LocationProvider } from './context/LocationContext'
-import Notification from './components/atoms/Notification'
+import RequestPermission from './components/atoms/RequestPermission'
 
 function App() {
   return (
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
       <LocationProvider>
-        <Notification />
+        <RequestPermission />
         <ResponsiveLayout />
       </LocationProvider>
     </ErrorBoundary>
