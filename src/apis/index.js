@@ -57,9 +57,20 @@ export const postBalloonData = async ({ latitude, longitude, detection_time, det
   }
 }
 
-export const sendToken = async ({ token }) => {
+export const triggerFCM = async () => {
   try {
-    const response = await instance.post('/api/v1/balloons/notifications/tokens')
+    const response = await instance.get('/api/v1/balloons/notifications')
+    console.log('trigger:', response)
+  } catch (error) {
+    console.error('FCM Trigger 오류:', error)
+  }
+}
+export const sendToken = async ({ token }) => {
+  const data = {
+    registration_token: token,
+  }
+  try {
+    const response = await instance.post('/api/v1/balloons/notifications/token', data)
     console.log('token resp', response)
   } catch (error) {
     console.error('토큰을 보내는데 에러가 발생했습니다.:', error)

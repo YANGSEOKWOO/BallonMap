@@ -5,6 +5,7 @@ import ModalTopContent from './ModalTopContent'
 import Process from '../atoms/Process'
 import StatusBar from '../atoms/StatusBar'
 import { MobileModalBottomContent, WebModalBottomContent } from './ModalBottomContent'
+import './css/Modal.css'
 
 /**
  * Modal 컴포넌트
