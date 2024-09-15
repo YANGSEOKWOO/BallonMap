@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { initializeApp } from 'firebase/app'
 import { getMessaging, getToken } from 'firebase/messaging'
-import { sendToken } from '../../apis'
+import { sendToken, triggerFCM } from '../../apis'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDGtaTT8T0cE9fYpGjL6AaIjaH8qwd0sRQ',
@@ -31,6 +31,7 @@ export default function RequestPermission() {
           if (currentToken) {
             setToken(currentToken)
             await sendToken({ token: currentToken }) // 비동기 함수 호출
+            await triggerFCM()
           } else {
             console.log('No registration token available.')
           }
