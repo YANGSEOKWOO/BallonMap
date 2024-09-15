@@ -2,12 +2,17 @@ import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import DesktopScreen from '../templates/DesktopScreen'
 import MobileScreen from '../templates/MobileScreen'
-import { getballoonListData } from '../../apis'
 import Spinner from '../atoms/Spinner'
+import { getballoonListData } from '../../apis'
+import { useLocation } from '../../context/LocationContext'
 
-const ResponsiveLayout = ({ children }) => {
+const ResponsiveLayout = () => {
+  const { location, loading: locationLoading } = useLocation()
+  const isDesktop = useMediaQuery({ minWidth: 768 })
+  const isMobile = useMediaQuery({ maxWidth: 767 })
+
   const [data, setData] = useState(null) // 풍선 데이터를 저장할 상태
-  const [loading, setLoading] = useState(true) // 로딩 상태
+  const [loading, setLoading] = useState(true) // 데이터 로딩 상태
   const [error, setError] = useState(null) // 오류 상태
 
   useEffect(() => {
@@ -25,26 +30,18 @@ const ResponsiveLayout = ({ children }) => {
     fetchData()
   }, [])
 
-  const Desktop = ({ balloons }) => {
-    const isDesktop = useMediaQuery({ minWidth: 768 })
-    return isDesktop && <DesktopScreen balloons={balloons}></DesktopScreen>
+  if (locationLoading || loading) {
+    return <Spinner /> // 위치나 데이터 로딩 중일 때 스피너 표시
   }
 
-  const Mobile = ({ balloons }) => {
-    const isMobile = useMediaQuery({ maxWidth: 767 })
-    return isMobile && <MobileScreen balloons={balloons}></MobileScreen>
+  if (error) {
+    return <div style={{ color: 'red' }}>Error: {error}</div> // 오류 발생 시 오류 메시지 표시
   }
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
-      {/* {error && <div style={{ color: 'red' }}>Error: {error}</div>}  */}
-      {loading && <Spinner />} {/* 로딩 중일 때 스피너를 화면에 표시 */}
-      {/* BE 연동 */}
-      <Desktop balloons={data?.balloons || []} />
-      <Mobile balloons={data?.balloons || []} />
-      {/* 목업 데이터 */}
-      {/* <Desktop balloons={data || []} />
-      <Mobile balloons={data || []} /> */}
+      {isDesktop && <DesktopScreen balloons={data?.balloons || []} initialLocation={location} />}
+      {isMobile && <MobileScreen balloons={data?.balloons || []} initialLocation={location} />}
     </div>
   )
 }

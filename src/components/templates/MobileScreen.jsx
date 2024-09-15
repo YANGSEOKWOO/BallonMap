@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Map, MarkerClusterer } from 'react-kakao-maps-sdk'
 import AppMarker from '../atoms/AppMarker'
 import { ChatTeardropText, Siren } from '@phosphor-icons/react'
@@ -8,8 +8,13 @@ import ModalBalloonList from '../molecules/ModalBalloonList'
 import ModalReport from '../molecules/ModalReport'
 import { Badge } from 'react-bootstrap'
 
-const MobileScreen = ({ balloons }) => {
-  const [mapCenter, setMapCenter] = useState({ lat: 33.450701, lng: 126.570667 })
+const MobileScreen = ({ balloons, initialLocation }) => {
+  const [mapCenter, setMapCenter] = useState(initialLocation)
+
+  // 지도 중심을 사용자의 현재 위치로 설정
+  useEffect(() => {
+    setMapCenter(initialLocation)
+  }, [initialLocation])
   const [showListModal, setShowListModal] = useState(false) // 목록 모달 상태
   const [showReportModal, setShowReportModal] = useState(false) // 제보 모달 상태
 
