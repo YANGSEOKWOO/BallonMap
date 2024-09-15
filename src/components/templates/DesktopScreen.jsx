@@ -4,8 +4,13 @@ import WebMarker from '../atoms/WebMarker'
 import Sidebar from '../organisms/Sidebar'
 import MarkerModal from '../organisms/MarkerModal'
 
-const DesktopScreen = ({ balloons, children }) => {
-  const [mapCenter, setMapCenter] = useState({ lat: 33.450701, lng: 126.570667 })
+const DesktopScreen = ({ balloons, initialLocation }) => {
+  const [mapCenter, setMapCenter] = useState(initialLocation)
+
+  // 지도 중심을 사용자의 현재 위치로 설정
+  useEffect(() => {
+    setMapCenter(initialLocation)
+  }, [initialLocation])
   const [selectedMarker, setSelectedMarker] = useState(null)
   const [modalShow, setModalShow] = useState(false)
 
