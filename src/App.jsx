@@ -6,7 +6,7 @@ import RequestPermission from './components/atoms/RequestPermission'
 
 function App() {
   return (
-    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+    <ErrorBoundary FallbackComponent={() => <div>Error</div>}>
       <LocationProvider>
         <RequestPermission />
         <ResponsiveLayout />

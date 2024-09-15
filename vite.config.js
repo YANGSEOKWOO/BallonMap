@@ -56,15 +56,5 @@ export default defineConfig(({ mode }) => {
         },
       }),
     ],
-    server: {
-      https:
-        process.env.NODE_ENV === 'development'
-          ? {
-              key: 'key.pem',
-              cert: 'cert.pem',
-            }
-          : false,
-      host: true,
-    },
   }
 })

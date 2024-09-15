@@ -1,10 +1,8 @@
+import { useState, useEffect } from 'react'
 import { initializeApp } from 'firebase/app'
 import { getMessaging, getToken } from 'firebase/messaging'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { sendToken } from '../../apis'
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: 'AIzaSyDGtaTT8T0cE9fYpGjL6AaIjaH8qwd0sRQ',
   authDomain: 'balloon-map-net.firebaseapp.com',
@@ -15,36 +13,38 @@ const firebaseConfig = {
   measurementId: 'G-3HHX0FPMJR',
 }
 
-// Get registration token. Initially this makes a network call, once retrieved
-// subsequent calls to getToken will return from cache.
-
 export default function RequestPermission() {
-  // Initialize Firebase
-  // Firebase 초기화
-  const app = initializeApp(firebaseConfig)
-  console.log('Firebase initialized:', app)
-  const messaging = getMessaging(app)
+  const [token, setToken] = useState(null)
+  const [error, setError] = useState(null)
 
-  console.log('Requesting permission...')
-  Notification.requestPermission().then((permission) => {
-    if (permission === 'granted') {
-      console.log('Notification permission granted.')
-      getToken(messaging, { vapidKey: 'BL6oABzSftdRmaeSIMegPzCdeEWOPk7D5DPGa8WhKOZWbYmsgem26BWX1gqIWbvsQ64XfIuMSNyYlKXQoK8hfaQ' })
-        .then((currentToken) => {
+  useEffect(() => {
+    const requestPermission = async () => {
+      try {
+        const app = initializeApp(firebaseConfig)
+        const messaging = getMessaging(app)
+
+        const permission = await Notification.requestPermission()
+        if (permission === 'granted') {
+          const currentToken = await getToken(messaging, {
+            vapidKey: 'BL6oABzSftdRmaeSIMegPzCdeEWOPk7D5DPGa8WhKOZWbYmsgem26BWX1gqIWbvsQ64XfIuMSNyYlKXQoK8hfaQ',
+          })
           if (currentToken) {
-            console.log('currentToken:', currentToken)
-            // Send the token to your server and update the UI if necessary
-            // ...
+            setToken(currentToken)
+            await sendToken({ token: currentToken }) // 비동기 함수 호출
           } else {
-            // Show permission request UI
-            console.log('No registration token available. Request permission to generate one.')
-            // ...
+            console.log('No registration token available.')
           }
-        })
-        .catch((err) => {
-          console.log('An error occurred while retrieving token. ', err)
-          // ...
-        })
+        }
+      } catch (err) {
+        setError(err.message)
+        console.log('Error retrieving token:', err)
+      }
     }
-  })
+
+    requestPermission()
+  }, [])
+
+  if (error) return <div>Error: {error}</div>
+  if (!token) return <div>Requesting permission...</div>
+  return <></>
 }

@@ -57,6 +57,15 @@ export const postBalloonData = async ({ latitude, longitude, detection_time, det
   }
 }
 
+export const sendToken = async ({ token }) => {
+  try {
+    const response = await instance.post('/api/v1/balloons/notifications/tokens')
+    console.log('token resp', response)
+  } catch (error) {
+    console.error('토큰을 보내는데 에러가 발생했습니다.:', error)
+  }
+}
+
 const mockData = {
   success: true,
   data: [
