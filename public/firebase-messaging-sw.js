@@ -1,30 +1,30 @@
-// // Import Firebase scripts
-// importScripts('https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js')
-// importScripts('https://www.gstatic.com/firebasejs/10.1.0/firebase-messaging.js')
+import { initializeApp } from 'firebase/app'
+import { getMessaging, onBackgroundMessage } from 'firebase/messaging/sw'
 
-// // Initialize Firebase app with static config values
-// firebase.initializeApp({
-//   apiKey: 'AIzaSyDGtaTT8T0cE9fYpGjL6AaIjaH8qwd0sRQ',
-//   authDomain: 'balloon-map-net.firebaseapp.com',
-//   projectId: 'balloon-map-net',
-//   storageBucket: 'balloon-map-net.appspot.com',
-//   messagingSenderId: '643859630215',
-//   appId: '1:643859630215:web:45a110bbaed86bc1211022',
-//   measurementId: 'G-3HHX0FPMJR',
-// })
+// Initialize the Firebase app in the service worker by passing in
+// your app's Firebase config object.
+// https://firebase.google.com/docs/web/setup#config-object
+const firebaseApp = initializeApp({
+  apiKey: 'AIzaSyDGtaTT8T0cE9fYpGjL6AaIjaH8qwd0sRQ',
+  authDomain: 'balloon-map-net.firebaseapp.com',
+  projectId: 'balloon-map-net',
+  storageBucket: 'balloon-map-net.appspot.com',
+  messagingSenderId: '643859630215',
+  appId: '1:643859630215:web:45a110bbaed86bc1211022',
+  measurementId: 'G-3HHX0FPMJR',
+})
 
-// // Initialize Firebase Messaging
-// const messaging = firebase.messaging()
+// Retrieve an instance of Firebase Messaging so that it can handle background
+// messages.
+const messaging = getMessaging(firebaseApp)
+onBackgroundMessage(messaging, (payload) => {
+  console.log('[firebase-messaging-sw.js] Received background message ', payload)
+  // Customize notification here
+  const notificationTitle = 'Background Message Title'
+  const notificationOptions = {
+    body: 'Background Message body.',
+    icon: '/firebase-logo.png',
+  }
 
-// // Background message handler
-// messaging.onBackgroundMessage((payload) => {
-//   console.log('[firebase-messaging-sw.js] Received background message ', payload)
-
-//   const notificationTitle = payload.notification.title
-//   const notificationOptions = {
-//     body: payload.notification.body,
-//     icon: '/pwa-192x192.png', // 사용할 아이콘
-//   }
-
-//   self.registration.showNotification(notificationTitle, notificationOptions)
-// })
+  self.registration.showNotification(notificationTitle, notificationOptions)
+})
