@@ -30,6 +30,7 @@ export default function RequestPermission() {
           })
           if (currentToken) {
             setToken(currentToken)
+            console.log('Token:', currentToken)
             await sendToken({ token: currentToken }) // 비동기 함수 호출
             await triggerFCM()
           } else {
