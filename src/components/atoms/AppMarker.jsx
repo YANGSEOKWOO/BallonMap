@@ -1,20 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { MapMarker, Circle, CustomOverlayMap } from 'react-kakao-maps-sdk'
 import blueballoon from '../../assets/blueballoon.png'
 import redballoon from '../../assets/redballoon.png'
 import InfoWindow from './InfoWindow'
 
-/**
- * 위도와 경도를 받고, 그 위치에 마커를 생성하는 함수
- *
- * @param {number} lat 마커 위도
- * @param {number} lng 마커 경도
- * @param {bool} isCleaned 제거 됐는지 여부
- * @param {number} id 풍선 id값
- * @param {function} onClick 마커 클릭 시 호출되는 함수
- *
- * @returns {JSX.Element} 마커 컴포넌트
- */
 export default function AppMarker({ lat, lng, isCleaned, id, onClick, time }) {
   const balloonImage = isCleaned ? blueballoon : redballoon
   const [isOpen, setIsOpen] = useState(false) // 인포윈도우의 상태
@@ -22,13 +11,9 @@ export default function AppMarker({ lat, lng, isCleaned, id, onClick, time }) {
   const circleColor = isCleaned ? '#CFE7FF' : '#F27B92'
 
   const toggleInfoWindow = () => {
+    console.log('InfoWindow toggle:', !isOpen)
     setIsOpen((prevState) => !prevState) // 상태를 명확히 반전
   }
-  useEffect(() => {
-    if (isOpen) {
-      console.log('InfoWindow is now open')
-    }
-  }, [isOpen])
 
   return (
     <>
@@ -59,7 +44,7 @@ export default function AppMarker({ lat, lng, isCleaned, id, onClick, time }) {
       {/* 원형 표시 (Circle) */}
       <Circle
         center={{ lat, lng }}
-        radius={100}
+        radius={25} // 반지름을 적절히 조정
         strokeWeight={2}
         strokeColor={circleColor} // 선의 색깔
         strokeOpacity={1} // 선의 불투명도

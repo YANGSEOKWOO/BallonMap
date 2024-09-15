@@ -14,6 +14,7 @@ const ResponsiveLayout = ({ children }) => {
     const fetchData = async () => {
       try {
         const balloonData = await getballoonListData()
+        console.log('ballonData:', balloonData)
         setData(balloonData) // 받아온 데이터 저장
       } catch (err) {
         setError(err.message) // 오류 발생 시 오류 상태에 저장
@@ -36,10 +37,14 @@ const ResponsiveLayout = ({ children }) => {
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
-      {error && <div style={{ color: 'red' }}>Error: {error}</div>} {/* 에러 메시지를 표시하지만, 렌더링은 계속함 */}
+      {/* {error && <div style={{ color: 'red' }}>Error: {error}</div>}  */}
       {loading && <Spinner />} {/* 로딩 중일 때 스피너를 화면에 표시 */}
+      {/* BE 연동 */}
       <Desktop balloons={data?.balloons || []} />
       <Mobile balloons={data?.balloons || []} />
+      {/* 목업 데이터 */}
+      {/* <Desktop balloons={data || []} />
+      <Mobile balloons={data || []} /> */}
     </div>
   )
 }

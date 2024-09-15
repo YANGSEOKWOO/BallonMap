@@ -13,6 +13,7 @@ import StatusBar from './StatusBar'
  * @param {string} id 세부 풍선 데이터
  * @returns 인포윈도우
  */
+
 export default function InfoWindow({ isCleaned, lat, lng, id, time }) {
   const [address, setAddress] = useState('') // 주소 상태 초기화
   const [showModal, setShowModal] = useState(false) // 모달의 열림/닫힘 상태
