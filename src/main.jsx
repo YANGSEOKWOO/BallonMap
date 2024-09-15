@@ -7,7 +7,7 @@ if ('serviceWorker' in navigator) {
   console.log('Service Worker is supported')
   window.addEventListener('load', () => {
     navigator.serviceWorker
-      .register('/firebase-messaging-sw.js') // public 폴더에 있는 Service Worker 등록
+      .register('/firebase-messaging-sw.js', { type: 'module' }) // public 폴더에 있는 Service Worker 등록
       .then((registration) => {
         console.log('ServiceWorker registration successful with scope: ', registration.scope)
       })
