@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { messaging } from './firebase'
+import { messaging } from '../../firebase' // firebase 경로 수정
 import { getToken, onMessage } from 'firebase/messaging'
 
 const Notification = () => {
