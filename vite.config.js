@@ -2,9 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { VitePWA } from 'vite-plugin-pwa'
-import { Key } from '@phosphor-icons/react'
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd())
   return {
@@ -51,7 +49,7 @@ export default defineConfig(({ mode }) => {
         minify: true,
         inject: {
           data: {
-            kakaoApiKey: env.VITE_KAKAO_API_KEY,
+            kakaoApiKey: env.VITE_KAKAO_API_KEY, // 환경 변수 주입
           },
         },
       }),
@@ -65,6 +63,22 @@ export default defineConfig(({ mode }) => {
             }
           : false,
       host: true,
+    },
+    build: {
+      rollupOptions: {
+        input: {
+          main: 'index.html',
+          firebaseMessagingSW: 'firebase-messaging-sw.js', // Service Worker 파일 경로 추가
+        },
+        output: {
+          entryFileNames: (chunk) => {
+            if (chunk.name === 'firebaseMessagingSW') {
+              return 'firebase-messaging-sw.js'
+            }
+            return '[name].js'
+          },
+        },
+      },
     },
   }
 })

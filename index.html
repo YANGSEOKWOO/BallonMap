@@ -11,10 +11,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BallonMap</title>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=kakaoApiKey%>&libraries=services,clusterer"></script>
+    <!-- Vite의 환경 변수로 주입된 Kakao API Key 사용 -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%kakaoApiKey%&libraries=services,clusterer"></script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
