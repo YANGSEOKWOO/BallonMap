@@ -32,7 +32,7 @@ export default function RequestPermission() {
             setToken(currentToken)
             console.log('Token:', currentToken)
             await sendToken({ token: currentToken }) // 비동기 함수 호출
-            await triggerFCM()
+            // await triggerFCM()
           } else {
             console.log('No registration token available.')
           }
