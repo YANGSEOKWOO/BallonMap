@@ -13,6 +13,7 @@ const firebaseApp = initializeApp({
   appId: '1:643859630215:web:45a110bbaed86bc1211022',
   measurementId: 'G-3HHX0FPMJR',
 })
+console.log('Firebase initialized message-sw:', firebaseApp)
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.

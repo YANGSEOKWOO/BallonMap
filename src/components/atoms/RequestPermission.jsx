@@ -22,6 +22,7 @@ export default function RequestPermission() {
   // Initialize Firebase
   // Firebase 초기화
   const app = initializeApp(firebaseConfig)
+  console.log('Firebase initialized:', app)
   const messaging = getMessaging(app)
 
   console.log('Requesting permission...')
