@@ -4,17 +4,6 @@ import blueballoon from '../../assets/blueballoon.png'
 import redballoon from '../../assets/redballoon.png'
 import InfoWindow from './InfoWindow'
 
-/**
- * 위도와 경도를 받고, 그 위치에 마커를 생성하는 함수
- *
- * @param {number} lat 마커 위도
- * @param {number} lng 마커 경도
- * @param {bool} isCleaned 제거 됐는지 여부
- * @param {number} id 풍선 id값
- * @param {function} onClick 마커 클릭 시 호출되는 함수
- *
- * @returns {JSX.Element} 마커 컴포넌트
- */
 export default function AppMarker({ lat, lng, isCleaned, id, onClick, time }) {
   const balloonImage = isCleaned ? blueballoon : redballoon
   const [isOpen, setIsOpen] = useState(false) // 인포윈도우의 상태
@@ -22,6 +11,7 @@ export default function AppMarker({ lat, lng, isCleaned, id, onClick, time }) {
   const circleColor = isCleaned ? '#CFE7FF' : '#F27B92'
 
   const toggleInfoWindow = () => {
+    console.log('InfoWindow toggle:', !isOpen)
     setIsOpen((prevState) => !prevState) // 상태를 명확히 반전
   }
 
@@ -38,19 +28,23 @@ export default function AppMarker({ lat, lng, isCleaned, id, onClick, time }) {
         clickable={true}
         onClick={toggleInfoWindow} // 클릭 시 인포윈도우 토글
       />
-      {/* 인포윈도우 */}
-      <CustomOverlayMap
-        position={{ lat, lng }}
-        yAnchor={1.2} // y축 기준점 조정 (마커 위로 이동)
-        clickable={true} // 오버레이도 클릭 가능하게
-        zIndex={1} // 마커 위로 위치하도록 zIndex 설정
-      >
-        <InfoWindow isCleaned={isCleaned} lat={lat} lng={lng} time={time} id={id} />
-      </CustomOverlayMap>
+
+      {/* 인포윈도우가 열려 있을 때만 CustomOverlayMap을 렌더링 */}
+      {isOpen && (
+        <CustomOverlayMap
+          position={{ lat, lng }}
+          yAnchor={1.2} // y축 기준점 조정 (마커 위로 이동)
+          clickable={true} // 오버레이도 클릭 가능하게
+          zIndex={1} // 마커 위로 위치하도록 zIndex 설정
+        >
+          <InfoWindow isCleaned={isCleaned} lat={lat} lng={lng} time={time} id={id} />
+        </CustomOverlayMap>
+      )}
+
       {/* 원형 표시 (Circle) */}
       <Circle
         center={{ lat, lng }}
-        radius={100}
+        radius={25} // 반지름을 적절히 조정
         strokeWeight={2}
         strokeColor={circleColor} // 선의 색깔
         strokeOpacity={1} // 선의 불투명도
