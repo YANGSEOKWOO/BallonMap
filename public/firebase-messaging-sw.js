@@ -4,7 +4,7 @@ importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js')
 // Initialize the Firebase app in the service worker by passing in
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
-const firebaseApp = initializeApp({
+firebaseApp.initializeApp({
   apiKey: 'AIzaSyDGtaTT8T0cE9fYpGjL6AaIjaH8qwd0sRQ',
   authDomain: 'balloon-map-net.firebaseapp.com',
   projectId: 'balloon-map-net',
