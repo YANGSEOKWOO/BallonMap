@@ -30,6 +30,9 @@ export default function RequestPermission() {
           })
           if (currentToken) {
             setToken(currentToken)
+            messaging.onMessage((payload) => {
+              alert('알림:' + payload.notification.body)
+            })
             console.log('Token:', currentToken)
             await sendToken({ token: currentToken }) // 비동기 함수 호출
             await triggerFCM()
