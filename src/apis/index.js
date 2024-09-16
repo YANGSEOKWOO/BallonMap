@@ -59,7 +59,7 @@ export const postBalloonData = async ({ latitude, longitude, detection_time, det
 
 export const triggerFCM = async () => {
   try {
-    const response = await instance.get('/api/v1/balloons/notifications')
+    const response = await instance.post('/api/v1/balloons/notifications')
     console.log('trigger:', response)
   } catch (error) {
     console.error('FCM Trigger 오류:', error)

@@ -15,18 +15,40 @@ const ResponsiveLayout = () => {
   const [loading, setLoading] = useState(true) // 데이터 로딩 상태
   const [error, setError] = useState(null) // 오류 상태
 
+  const fetchData = async () => {
+    setLoading(true) // 데이터 불러오기 시작 시 로딩 상태로 설정
+    try {
+      const balloonData = await getballoonListData()
+      console.log('ballonData:', balloonData)
+      setData(balloonData) // 받아온 데이터 저장
+    } catch (err) {
+      setError(err.message) // 오류 발생 시 오류 상태에 저장
+    } finally {
+      setLoading(false) // 데이터 불러오기가 끝나면 로딩 상태 해제
+    }
+  }
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const balloonData = await getballoonListData()
-        console.log('ballonData:', balloonData)
-        setData(balloonData) // 받아온 데이터 저장
-      } catch (err) {
-        setError(err.message) // 오류 발생 시 오류 상태에 저장
-      } finally {
-        setLoading(false) // 데이터 불러오기가 끝나면 로딩 상태 해제
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        console.log('App is in the foreground')
+        // 포그라운드로 전환될 때 데이터 다시 불러오기
+        fetchData()
+      } else {
+        console.log('App is in the background')
       }
     }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    // 클린업 함수로 이벤트 리스너 제거
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [])
+
+  useEffect(() => {
+    // 컴포넌트가 처음 마운트될 때 데이터를 한 번 불러오기
     fetchData()
   }, [])
 

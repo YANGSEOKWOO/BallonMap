@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { initializeApp } from 'firebase/app'
 import { getMessaging, getToken, onMessage } from 'firebase/messaging'
-import { sendToken } from '../../apis'
+import { sendToken, triggerFCM } from '../../apis'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDGtaTT8T0cE9fYpGjL6AaIjaH8qwd0sRQ',
@@ -32,6 +32,7 @@ export default function RequestPermission() {
             setToken(currentToken)
             console.log('Token:', currentToken)
             await sendToken({ token: currentToken })
+            await triggerFCM()
 
             // 포그라운드 메시지 처리
             onMessage(messaging, (payload) => {
