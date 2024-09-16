@@ -3,7 +3,7 @@ import { useMediaQuery } from 'react-responsive'
 import DesktopScreen from '../templates/DesktopScreen'
 import MobileScreen from '../templates/MobileScreen'
 import Spinner from '../atoms/Spinner'
-import { getballoonListData } from '../../apis'
+import { getballoonListData, triggerFCM } from '../../apis'
 import { useLocation } from '../../context/LocationContext'
 
 const ResponsiveLayout = () => {
@@ -29,11 +29,12 @@ const ResponsiveLayout = () => {
   }
 
   useEffect(() => {
-    const handleVisibilityChange = () => {
+    const handleVisibilityChange = async () => {
       if (document.visibilityState === 'visible') {
         console.log('App is in the foreground')
         // 포그라운드로 전환될 때 데이터 다시 불러오기
         fetchData()
+        await triggerFCM()
       } else {
         console.log('App is in the background')
       }
