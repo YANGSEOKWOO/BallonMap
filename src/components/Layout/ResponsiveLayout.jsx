@@ -7,7 +7,7 @@ import { getballoonListData, triggerFCM } from '../../apis'
 import { useLocation } from '../../context/LocationContext'
 
 const ResponsiveLayout = () => {
-  const { location, loading: locationLoading } = useLocation()
+  const { location, loading: locationLoading, setLocation } = useLocation()
   const isDesktop = useMediaQuery({ minWidth: 768 })
   const isMobile = useMediaQuery({ maxWidth: 767 })
 
@@ -28,6 +28,7 @@ const ResponsiveLayout = () => {
     }
   }
 
+  // 테스트용 데이터
   useEffect(() => {
     const handleVisibilityChange = async () => {
       if (document.visibilityState === 'visible') {
@@ -35,6 +36,8 @@ const ResponsiveLayout = () => {
         // 포그라운드로 전환될 때 데이터 다시 불러오기
         fetchData()
         await triggerFCM()
+        setLocation({ lat: 37.5665, lng: 126.978 }) // 예: 서울의 위경도
+        console.log('location설정:', location)
       } else {
         console.log('App is in the background')
       }
@@ -47,6 +50,25 @@ const ResponsiveLayout = () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
   }, [])
+  // useEffect(() => {
+  //   const handleVisibilityChange = async () => {
+  //     if (document.visibilityState === 'visible') {
+  //       console.log('App is in the foreground')
+  //       // 포그라운드로 전환될 때 데이터 다시 불러오기
+  //       fetchData()
+  //       await triggerFCM()
+  //     } else {
+  //       console.log('App is in the background')
+  //     }
+  //   }
+
+  //   document.addEventListener('visibilitychange', handleVisibilityChange)
+
+  //   // 클린업 함수로 이벤트 리스너 제거
+  //   return () => {
+  //     document.removeEventListener('visibilitychange', handleVisibilityChange)
+  //   }
+  // }, [])
 
   useEffect(() => {
     // 컴포넌트가 처음 마운트될 때 데이터를 한 번 불러오기
