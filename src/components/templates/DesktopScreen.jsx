@@ -75,18 +75,18 @@ const DesktopScreen = ({ balloons, initialLocation }) => {
       <Sidebar balloons={balloons} onballoonClick={handleballoonClick} />
       <Map center={mapCenter} style={{ width: '100%', height: '100%' }} level={4}>
         {/* Clusterer를 사용하여 마커를 클러스터링 */}
-        <MarkerClusterer averageCenter={true} minLevel={4}>
-          {balloons.map((balloon) => (
-            <WebMarker
-              key={balloon.id}
-              lat={balloon.latitude}
-              lng={balloon.longitude}
-              isCleaned={balloon.processing_state === '처리 완료'}
-              id={balloon.id}
-              onClick={() => handleMarkerClick(balloon)} // 마커 클릭 시 호출될 함수 전달
-            />
-          ))}
-        </MarkerClusterer>
+        {/* <MarkerClusterer averageCenter={true} minLevel={4}> */}
+        {balloons.map((balloon) => (
+          <WebMarker
+            key={balloon.id}
+            lat={balloon.latitude}
+            lng={balloon.longitude}
+            isCleaned={balloon.processing_state === '처리 완료'}
+            id={balloon.id}
+            onClick={() => handleMarkerClick(balloon)} // 마커 클릭 시 호출될 함수 전달
+          />
+        ))}
+        {/* </MarkerClusterer> */}
       </Map>
       <MarkerModal show={modalShow} handleClose={handleCloseModal} markerData={selectedMarker} />
     </div>
