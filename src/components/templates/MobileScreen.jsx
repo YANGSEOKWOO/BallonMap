@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Map, MarkerClusterer } from 'react-kakao-maps-sdk'
+import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk'
 import AppMarker from '../atoms/AppMarker'
 import { ChatTeardropText, Siren } from '@phosphor-icons/react'
 import './css/MobileLayout.css'
@@ -50,6 +50,8 @@ const MobileScreen = ({ balloons, initialLocation }) => {
             time={balloon.processing_time ? balloon.processing_time : balloon.detection_time}
           />
         ))}
+        <MapMarker position={initialLocation} image={{ src: '/location.png', size: { width: 24, height: 28 }, options: { offset: { x: 12, y: 28 } } }} />
+
         {/* </MarkerClusterer> */}
       </Map>
 
