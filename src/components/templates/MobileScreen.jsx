@@ -14,6 +14,7 @@ const MobileScreen = ({ balloons, initialLocation }) => {
   // 지도 중심을 사용자의 현재 위치로 설정
   useEffect(() => {
     setMapCenter(initialLocation)
+    console.log('location:', mapCenter)
   }, [initialLocation])
   const [showListModal, setShowListModal] = useState(false) // 목록 모달 상태
   const [showReportModal, setShowReportModal] = useState(false) // 제보 모달 상태
