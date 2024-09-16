@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { initializeApp } from 'firebase/app'
-import { getMessaging, getToken } from 'firebase/messaging'
-import { sendToken, triggerFCM } from '../../apis'
+import { getMessaging, getToken, onMessage } from 'firebase/messaging'
+import { sendToken } from '../../apis'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDGtaTT8T0cE9fYpGjL6AaIjaH8qwd0sRQ',
@@ -31,8 +31,19 @@ export default function RequestPermission() {
           if (currentToken) {
             setToken(currentToken)
             console.log('Token:', currentToken)
-            await sendToken({ token: currentToken }) // 비동기 함수 호출
-            // await triggerFCM()
+            await sendToken({ token: currentToken })
+
+            // 포그라운드 메시지 처리
+            onMessage(messaging, (payload) => {
+              console.log('포그라운드 메시지 수신:', payload)
+              const notificationTitle = payload.notification.title
+              const notificationOptions = {
+                body: payload.notification.body,
+              }
+              if (Notification.permission === 'granted') {
+                new Notification(notificationTitle, notificationOptions)
+              }
+            })
           } else {
             console.log('No registration token available.')
           }
