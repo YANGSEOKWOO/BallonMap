@@ -35,10 +35,11 @@ const ResponsiveLayout = () => {
         console.log('App is in the foreground')
         // 포그라운드로 전환될 때 데이터 다시 불러오기
         fetchData()
-        await triggerFCM()
+        // await triggerFCM()
         setLocation({ lat: 37.5665, lng: 126.978 }) // 예: 서울의 위경도
         console.log('location설정:', location)
       } else {
+        await triggerFCM()
         console.log('App is in the background')
       }
     }
