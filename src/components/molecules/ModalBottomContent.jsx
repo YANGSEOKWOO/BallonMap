@@ -4,12 +4,14 @@ import { formatDate } from '../../utils/convert'
 
 function StatusHeader({ status, icon, color, fontColor, isMobile }) {
   const mobileStyle = isMobile
-    ? { padding: '0.25rem 0.5rem', maxWidth: '120px', minWidth: '80px' } // 모바일일 때 글자수에 맞춘 크기
-    : { padding: '0.25rem 0.75rem', width: 'auto' } // 웹일 때는 기본 스타일
+    ? { padding: '0.25rem 1rem' } // 모바일일 때 글자수에 맞춘 크기
+    : { padding: '0.25rem 0.75rem' } // 웹일 때는 기본 스타일
 
   return (
-    <div className="d-flex flex-column">
-      <div className="d-flex align-items-center" style={{ ...mobileStyle, backgroundColor: color, borderRadius: '25px' }}>
+    <div className="d-flex" style={{ width: 'auto', flexGrow: 0 }}>
+      {' '}
+      {/* flexGrow: 0 추가 */}
+      <div className="d-flex align-items-center" style={{ ...mobileStyle, backgroundColor: color, borderRadius: '25px', flexGrow: 0 }}>
         <div className="me-2">{icon}</div>
         <h5 className="mb-0 fw-bold" style={{ color: fontColor }}>
           {status}
@@ -36,8 +38,8 @@ function TimelineItem({ status, time, result, image }) {
   const formatTime = time ? formatDate(time) : ''
   console.log('sats', time)
   return (
-    <div className="d-flex mt-4 justify-content-around align-items-center">
-      <div className="text-center me-4">
+    <div className="d-flex mt-4 justify-content-around ">
+      <div className="me-4">
         {/* 텍스트 내 줄바꿈을 <br />로 처리 */}
         {status.title === false ? <span className="mt-2 fw-bold">최초 발견시간</span> : <span className="mt-2 fw-bold">처리 완료시간</span>}
         <p className="text-muted">

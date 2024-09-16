@@ -37,11 +37,11 @@ export default function ModalTopContent({ isCleaned, lat, lng, time, isMobile })
       <div className="d-flex align-items-center justify-content-between p-3">
         {/* 아이콘과 텍스트 컨테이너 */}
         <div className="d-flex align-items-center">
-          <div className="bg-black text-white rounded-circle d-flex align-items-center justify-content-center" style={{ width: '48px', height: '48px' }}>
+          <div className="bg-black text-white rounded-circle d-flex align-items-center justify-content-center" style={{ width: '3rem', height: '3rem' }}>
             <NavigationArrow size={24} weight="fill" style={{ transform: 'scaleX(-1)' }} />
           </div>
           <div className="ms-3">
-            {isLoading ? <p className="mb-1 fw-bold h3">주소를 불러오는 중...</p> : error ? <p className="mb-1 fw-bold h3 text-danger">{error}</p> : <p className="mb-1 fw-bold h3">{address}</p>}
+            {isLoading ? <p className="mb-1 fw-bold h4">주소를 불러오는 중...</p> : error ? <p className="mb-1 fw-bold h4 text-danger">{error}</p> : <p className="mb-1 fw-bold h5">{address}</p>}
             <p className="mb-0 text-muted">{showingTime}</p>
           </div>
         </div>

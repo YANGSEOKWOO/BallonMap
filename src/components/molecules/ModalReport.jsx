@@ -153,7 +153,9 @@ export default function ReportModal({ show, handleClose }) {
         <button type="submit" className="btn btn-primary" disabled={!isConfirmed}>
           전송하기
         </button>
-        <button type="button" className="btn btn-light text-danger ms-2" data-bs-dismiss="" data-bs-target="#report_modal">
+        <button type="button" className="btn btn-light text-danger ms-2" onClick={handleClose}>
+          {' '}
+          {/* onClick으로 handleClose 호출 */}
           취소
         </button>
       </Modal.Footer>
