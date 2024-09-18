@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk'
+import { Map, MapMarker, MarkerClusterer, Circle } from 'react-kakao-maps-sdk'
 import AppMarker from '../atoms/AppMarker'
 import { ChatTeardropText, Siren } from '@phosphor-icons/react'
 import './css/MobileLayout.css'
@@ -51,7 +51,27 @@ const MobileScreen = ({ balloons, initialLocation }) => {
             time={balloon.processing_time ? balloon.processing_time : balloon.detection_time}
           />
         ))}
-        <MapMarker position={initialLocation} image={{ src: '/location.png', size: { width: 24, height: 28 }, options: { offset: { x: 12, y: 28 } } }} />
+        <MapMarker
+          position={initialLocation}
+          image={{
+            src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyOCIgdmlld0JveD0iMCAwIDI0IDI4Ij4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjE0IiByPSIxMiIgZmlsbD0iIzAwMDBGRiIgLz4KPC9zdmc+',
+            size: { width: 16, height: 16 },
+            options: {
+              offset: { x: 8, y: 8 }, // 마커의 중앙을 기준으로 offset 설정
+              spriteSize: { width: 16, height: 16 }, // 확대/축소와 관계없이 고정 크기 설정
+            },
+          }}
+        />
+        <Circle
+          center={initialLocation}
+          radius={10} // 반지름을 적절히 조정
+          strokeWeight={2}
+          strokeColor="#87CEEB" // 선의 색깔
+          strokeOpacity={1} // 선의 불투명도
+          strokeStyle={'solid'} // 선의 스타일
+          fillColor="#87CEEB" // 채우기 색깔
+          fillOpacity={0.7} // 채우기 불투명도
+        />
 
         {/* </MarkerClusterer> */}
       </Map>
