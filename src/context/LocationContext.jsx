@@ -17,7 +17,7 @@ export const LocationProvider = ({ children }) => {
         (position) => {
           const { latitude, longitude } = position.coords
           // 초기위치설정
-          setLocation({ lat: 35.1711314614555, lng: 126.92302975889551 })
+          setLocation({ lat: 35.17265956110041, lng: 126.92513526748519 })
           setLoading(false)
         },
         (error) => {
