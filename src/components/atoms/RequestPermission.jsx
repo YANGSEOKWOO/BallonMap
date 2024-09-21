@@ -32,7 +32,7 @@ export default function RequestPermission() {
             setToken(currentToken)
             console.log('Token:', currentToken)
             await sendToken({ token: currentToken })
-            await triggerFCM()
+            // await triggerFCM()
 
             // 포그라운드 메시지 처리
             onMessage(messaging, (payload) => {
