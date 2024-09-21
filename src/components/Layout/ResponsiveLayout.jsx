@@ -40,7 +40,7 @@ const ResponsiveLayout = () => {
         // setLocation({ lat: 35.151, lng: 126.9178 }) // 예: 서울의 위경도
         console.log('location설정:', location)
       } else {
-        await triggerFCM()
+        // await triggerFCM()
         console.log('App is in the background')
       }
     }
