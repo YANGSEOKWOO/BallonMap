@@ -150,12 +150,11 @@ export default function ReportModal({ show, handleClose }) {
             위 내용을 충분히 인지하였으며, 작성한 내용을 제보합니다.
           </label>
         </div>
+        {/* 이제 버튼이 form을 제출함 */}
         <button type="submit" className="btn btn-primary" disabled={!isConfirmed}>
           전송하기
         </button>
         <button type="button" className="btn btn-light text-danger ms-2" onClick={handleClose}>
-          {' '}
-          {/* onClick으로 handleClose 호출 */}
           취소
         </button>
       </Modal.Footer>

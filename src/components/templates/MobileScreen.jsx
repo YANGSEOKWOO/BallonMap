@@ -8,7 +8,7 @@ import ModalBalloonList from '../molecules/ModalBalloonList'
 import ModalReport from '../molecules/ModalReport'
 import { Badge } from 'react-bootstrap'
 
-const MobileScreen = ({ balloons, initialLocation }) => {
+const MobileScreen = ({ balloons = [], initialLocation }) => {
   const [mapCenter, setMapCenter] = useState(initialLocation)
 
   // 지도 중심을 사용자의 현재 위치로 설정
