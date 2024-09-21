@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import ModalLocation from './ModalLocation'
 import dayjs from 'dayjs'
 import { convertCoordinatesToAddress } from '../../utils/kakaomap'
+import { postBalloonData } from '../../apis'
 
 export default function ReportModal({ show, handleClose }) {
   const [isConfirmed, setIsConfirmed] = useState(false)
@@ -61,6 +62,7 @@ export default function ReportModal({ show, handleClose }) {
   }
 
   const handleFormSubmit = async (e) => {
+    console.log('data 보내기')
     e.preventDefault()
 
     try {
@@ -84,76 +86,70 @@ export default function ReportModal({ show, handleClose }) {
         <Modal.Title>
           <div className="badge text-dark me-2 d-flex align-items-center justify-content-center" style={{ backgroundColor: '#FFF2B1' }}>
             <p className="h5 m-0" style={{ color: '#FAB002' }}>
-              {' '}
-              오물풍선 위치 제보하기{' '}
+              오물풍선 위치 제보하기
             </p>
           </div>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div>
-          <form onSubmit={handleFormSubmit}>
-            <div className="mb-3">
-              <label htmlFor="location" className="form-label">
-                {' '}
-                오물풍선 발견 위치를 작성해주세요!{' '}
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="location"
-                value={selectedLocation} // 선택된 위치를 여기에 표시
-                placeholder="이곳에 작성해주세요!"
-                onClick={handleLocationOpenModal}
-                readOnly
-              />
+        <form onSubmit={handleFormSubmit}>
+          <div className="mb-3">
+            <label htmlFor="location" className="form-label">
+              오물풍선 발견 위치를 작성해주세요!
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="location"
+              value={selectedLocation} // 선택된 위치를 여기에 표시
+              placeholder="이곳에 작성해주세요!"
+              onClick={handleLocationOpenModal}
+              readOnly
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="time" className="form-label">
+              오물풍선 발견 시각을 작성해주세요!
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="time"
+              value={detectionTime} // 상태에서 관리하는 시간을 표시
+              onChange={handleTimeChange} // 시간을 수정 가능하게
+            />
+          </div>
+          {/* 이미지 업로드 필드 */}
+          <div className="mb-3">
+            <label htmlFor="image" className="form-label">
+              오물풍선 사진이 있다면 첨부해주세요! 감사합니다 🥰
+            </label>
+            {/* 미리보기 이미지 공간 */}
+            <div className="mb-3 d-flex justify-content-center align-items-center" style={{ height: '200px', width: 'auto', border: '1px solid #ccc', backgroundColor: '#f8f8f8' }}>
+              {imagePreview ? <img src={imagePreview} alt="미리보기" style={{ height: '100%', width: 'auto' }} /> : <p className="text-muted">사진을 업로드해주세요.</p>}
             </div>
-            <div className="mb-3">
-              <label htmlFor="time" className="form-label">
-                {' '}
-                오물풍선 발견 시각을 작성해주세요!{' '}
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="time"
-                value={detectionTime} // 상태에서 관리하는 시간을 표시
-                onChange={handleTimeChange} // 시간을 수정 가능하게
-              />
-            </div>
-            {/* 이미지 업로드 필드 */}
-            <div className="mb-3">
-              <label htmlFor="image" className="form-label">
-                {' '}
-                오물풍선 사진이 있다면 첨부해주세요! 감사합니다 🥰{' '}
-              </label>
-              {/* 미리보기 이미지 공간 */}
-              <div className="mb-3 d-flex justify-content-center align-items-center" style={{ height: '200px', width: 'auto', border: '1px solid #ccc', backgroundColor: '#f8f8f8' }}>
-                {imagePreview ? <img src={imagePreview} alt="미리보기" style={{ height: '100%', width: 'auto' }} /> : <p className="text-muted">사진을 업로드해주세요.</p>}
-              </div>
-              <input
-                type="file"
-                className="form-control"
-                id="image"
-                accept=".jpg,.jpeg,.png" // 허용할 파일 형식 제한
-                onChange={handleImageChange} // 이미지 파일 변경 시 처리
-              />
-              {imageError && <p className="text-danger">{imageError}</p>} {/* 오류 메시지 */}
-            </div>
-          </form>
-        </div>
+            <input
+              type="file"
+              className="form-control"
+              id="image"
+              accept=".jpg,.jpeg,.png" // 허용할 파일 형식 제한
+              onChange={handleImageChange} // 이미지 파일 변경 시 처리
+            />
+            {imageError && <p className="text-danger">{imageError}</p>} {/* 오류 메시지 */}
+          </div>
+
+          <div className="form-check mb-3">
+            <input type="checkbox" className="form-check-input" id="confirmation" onChange={handleCheckboxChange} />
+            <label className="form-check-label" htmlFor="confirmation">
+              위 내용을 충분히 인지하였으며, 작성한 내용을 제보합니다.
+            </label>
+          </div>
+          <button type="submit" className="btn btn-primary" disabled={!isConfirmed}>
+            전송하기
+          </button>
+        </form>
       </Modal.Body>
       <Modal.Footer>
-        <div className="form-check mb-3">
-          <input type="checkbox" className="form-check-input" id="confirmation" onChange={handleCheckboxChange} />
-          <label className="form-check-label" htmlFor="confirmation">
-            위 내용을 충분히 인지하였으며, 작성한 내용을 제보합니다.
-          </label>
-        </div>
-        {/* 이제 버튼이 form을 제출함 */}
-        <button type="submit" className="btn btn-primary" disabled={!isConfirmed}>
-          전송하기
-        </button>
         <button type="button" className="btn btn-light text-danger ms-2" onClick={handleClose}>
           취소
         </button>

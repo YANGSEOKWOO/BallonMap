@@ -16,7 +16,8 @@ export const LocationProvider = ({ children }) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords
-          setLocation({ lat: latitude, lng: longitude })
+          // 초기위치설정
+          setLocation({ lat: 35.1520230699986, lng: 126.91807265833815 })
           setLoading(false)
         },
         (error) => {

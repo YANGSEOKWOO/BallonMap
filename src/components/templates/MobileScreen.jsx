@@ -39,7 +39,7 @@ const MobileScreen = ({ balloons = [], initialLocation }) => {
       <div className="banner-container">
         <TopBanner />
       </div>
-      <Map center={mapCenter} style={{ width: '100%', height: '100%' }} level={4}>
+      <Map center={mapCenter} style={{ width: '100%', height: '100%' }} level={2}>
         {/* <MarkerClusterer averageCenter={true} minLevel={4}> */}
         {balloons.map((balloon) => (
           <AppMarker

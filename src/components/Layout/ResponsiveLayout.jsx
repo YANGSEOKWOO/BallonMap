@@ -36,7 +36,8 @@ const ResponsiveLayout = () => {
         // 포그라운드로 전환될 때 데이터 다시 불러오기
         fetchData()
         // await triggerFCM()
-        setLocation({ lat: 37.5665, lng: 126.978 }) // 예: 서울의 위경도
+        // TODO::
+        // setLocation({ lat: 35.151, lng: 126.9178 }) // 예: 서울의 위경도
         console.log('location설정:', location)
       } else {
         await triggerFCM()
