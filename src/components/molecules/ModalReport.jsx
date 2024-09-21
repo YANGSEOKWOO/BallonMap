@@ -75,6 +75,7 @@ export default function ReportModal({ show, handleClose }) {
         detection_image: image, // 이미지 파일
       })
       alert('제보가 성공적으로 전송되었습니다!')
+      window.location.reload()
     } catch (error) {
       console.error(error)
       alert('제보 전송에 실패했습니다.')
