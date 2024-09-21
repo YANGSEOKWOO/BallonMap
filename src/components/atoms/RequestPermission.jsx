@@ -58,7 +58,7 @@ export default function RequestPermission() {
     requestPermission()
   }, [])
 
-  if (error) return <div>Error: {error}</div>
-  if (!token) return <div>Requesting permission...</div>
+  // if (error) return <div>Error: {error}</div>
+  // if (!token) return <div>Requesting permission...</div>
   return <></>
 }
