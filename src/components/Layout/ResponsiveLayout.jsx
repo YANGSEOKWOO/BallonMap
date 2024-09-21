@@ -37,7 +37,7 @@ const ResponsiveLayout = () => {
         fetchData()
         // await triggerFCM()
         // TODO::
-        setLocation({ lat: 35.170803677239164, lng: 126.92270252939569 }) // 예: 서울의 위경도
+        setLocation({ lat: 35.17181722118451, lng: 126.92405784793769 }) // 예: 서울의 위경도
         console.log('location설정:', location)
       } else {
         // await triggerFCM()
