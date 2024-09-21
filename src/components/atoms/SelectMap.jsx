@@ -10,8 +10,8 @@ export default function SelectMap({ onPositionChange }) {
   const [data, setData] = useState({
     level: 3,
     position: {
-      lat: 35.1708,
-      lng: 126.9225,
+      lat: 35.17817798835912,
+      lng: 126.90915827175824,
     },
   })
 
