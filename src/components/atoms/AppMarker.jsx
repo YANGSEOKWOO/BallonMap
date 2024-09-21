@@ -66,7 +66,7 @@ export default function AppMarker({ lat, lng, isCleaned, id, onClick, time }) {
       {/* 원형 표시 (Circle) */}
       <Circle
         center={{ lat, lng }}
-        radius={25} // 반지름을 적절히 조정
+        radius={100} // 반지름을 적절히 조정
         strokeWeight={2}
         strokeColor={circleColor} // 선의 색깔
         strokeOpacity={1} // 선의 불투명도
