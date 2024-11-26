@@ -87,8 +87,8 @@ const ResponsiveLayout = () => {
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
-      {isDesktop && <DesktopScreen balloons={data?.balloons || []} initialLocation={location} />}
-      {isMobile && <MobileScreen balloons={data?.balloons || []} initialLocation={location} />}
+      {isDesktop && <DesktopScreen balloons={data || []} initialLocation={location} />}
+      {isMobile && <MobileScreen balloons={data || []} initialLocation={location} />}
     </div>
   )
 }

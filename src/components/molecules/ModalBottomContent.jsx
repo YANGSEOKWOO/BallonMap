@@ -50,7 +50,7 @@ function TimelineItem({ status, time, result, image }) {
             </span>
           ))}
         </p>
-        {status.title === true ? <span className="mt-2 fw-bold text-danger">특이사항 : {result || '없음'}</span> : ''}
+        {status.title === true ? <span className="mt-2 fw-bold text-danger">특이사항 : {result || ''}</span> : ''}
       </div>
       <div>{image ? <PendingUpdate isCleaned={true} image={image} /> : <PendingUpdate isCleaned={false} />}</div>
     </div>
